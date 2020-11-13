@@ -22,7 +22,7 @@ void main(string[] args) {
       auto angle = (MIN + x*(MAX-MIN)/(VALS-1.0));
       auto fixedVal = func( angle *PI/180 ).toFixed;
 
-      writef("%08X", fixedVal);
+      writef("%04X", (cast(ushort) fixedVal).swapEndian);
       //fixedVal.nativeToLittleEndian.each!(a => writefln("%02X", a));
       //write("    (", fixedVal.toFloat, ")");
       writeln;
