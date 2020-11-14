@@ -1,0 +1,13 @@
+/PlatinumFiles/
+/Working/
+/Programs/
+/ShinyChanges/*.txt
+*.narc
+*.nds
+*.o
+*.exe
+*.jar
+*.dll
+*.bak
+arm9*.bin
+temp_bin
