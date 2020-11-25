@@ -2,11 +2,13 @@
 
 Hijack: @ hook at 0x9018, insert at 0x5023c
   ldr r0, [r0, #0x0C] @ pointer to palette
-  mov r1, #31         @ hue shift index (need to somehow grab personality value here)
+  ldr r1, =0x02050200 @ location of "free ram"
+  ldr r1, [r1, #0]
+  lsr r1, r1, #16
   push {r0, r2, lr}
   ldr r3, =0x020500BD @ location of code from hueshift.c
   blx r3
-  pop {r1, r2, r3}
+  pop {r1, r2, r3}    @ note that the saved r0 was pushed into r1, which effectively does what the hijacked code did
   ldr r0, [sp, #0x8]
   bx r3
 
