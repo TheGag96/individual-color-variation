@@ -1,10 +1,8 @@
 # Invidiually-Unique Pokémon Colors (+ Improved Shiny Colors) for Pokémon Platinum
 
-**This project is not yet fully functional!**
+**This project is mostly functional, but not yet complete!**
 
 This Platinum hack aims to make it so each individual Pokémon has a slight color variation based on its personality value. This is inspired by a [similar feature](https://guidesmedia.ign.com/guides/9846/images/pikacolors.jpg) from the Pokémon Stadium games that does just this but based on the Pokémon's nickname. The ROM hack [Pokémon Polished Crystal](https://github.com/Rangi42/polishedcrystal) implements a very similar feature based on IV values. This implementation performs a hue shift on the Pokémon's palette on load.
-
-Currently, the hack can only do a static hue shift (that is, not connected to the Pokémon's personality value). Also, in battles, at certain times, the Pokémon's palette will revert to the normal one for a short time. Any help on either aspect would be much appreciated!
 
 
 ## Improved Shiny Colors
