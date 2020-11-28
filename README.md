@@ -11,9 +11,17 @@ Some Pokémon have shiny colors that are very close to their non-shiny colors, o
 
 List of changed Pokémon (so far):
 
+![Pichu](ShinyChanges/pichu_shiny.png) ![Pikachu](ShinyChanges/pikachu_shiny.png) ![Raichu](ShinyChanges/raichu_shiny.png)
+
+**Pichu, Pikachu, Raichu** - Tried to make visually distinct instead of the slight orange tint. A bit of a gradient from pale yellow to pale orange throughout the evolutionary line.
+
 ![Nidoqueen](ShinyChanges/nidoqueen_shiny.png)
 
 **Nidoqueen** - Colors made to look like Nidoking, which matches the pattern set by all other members of the Nidoran lines.
+
+![Seel](ShinyChanges/seel_shiny.png) ![Dewgong](ShinyChanges/dewgong_shiny.png)
+
+**Seel, Dewgong** - Made to look more visibly gold.
 
 ![Haunter](ShinyChanges/haunter_shiny.png) ![Gengar](ShinyChanges/gengar_shiny.png)
 
@@ -75,5 +83,5 @@ List of changed Pokémon (so far):
 
 ## Credits
 
-* MKHT - Help choosing shiny colors.
+* [MKHT](https://twitter.com/mkht_real) - Lots of help choosing shiny colors.
 * cjgart2000 - [This post](https://imgur.com/t/shinypokemon/LMnl0Jx) inspired some of the new shiny colors.
