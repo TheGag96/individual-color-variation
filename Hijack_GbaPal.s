@@ -1,6 +1,6 @@
 .thumb
 
-Hijack_GbaPal: @ hook at 0x3034, insert at 0x502E0
+Hijack_GbaPal: @ hook at 0x3034
   push {lr}
   push {r0, r1, r4}
 

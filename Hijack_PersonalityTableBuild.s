@@ -1,6 +1,6 @@
 .thumb
 
-Hijack_BattleSprite3: @ hook at overlay 12, 0x39F4, insert at 
+Hijack_PersonalityTableBuild: @ hook at overlay 12, 0x39F4 (0x0223614)
   .start:
 
   push {lr}

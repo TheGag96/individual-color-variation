@@ -18,7 +18,7 @@ eval $DEVKITARM/bin/arm-none-eabi-as -march=armv5te -mthumb -mthumb-interwork -c
 eval $DEVKITARM/bin/arm-none-eabi-as -march=armv5te -mthumb -mthumb-interwork -c Hijack_PersonalityClearPokedex.s -o Hijack_PersonalityClearPokedex.o
 eval $DEVKITARM/bin/arm-none-eabi-as -march=armv5te -mthumb -mthumb-interwork -c Hijack_BattleSprite.s -o Hijack_BattleSprite.o
 eval $DEVKITARM/bin/arm-none-eabi-as -march=armv5te -mthumb -mthumb-interwork -c Hijack_BattleSprite2.s -o Hijack_BattleSprite2.o
-eval $DEVKITARM/bin/arm-none-eabi-as -march=armv5te -mthumb -mthumb-interwork -c Hijack_BattleSprite3.s -o Hijack_BattleSprite3.o
+eval $DEVKITARM/bin/arm-none-eabi-as -march=armv5te -mthumb -mthumb-interwork -c Hijack_PersonalityTableBuild.s -o Hijack_PersonalityTableBuild.o
 eval $DEVKITARM/bin/arm-none-eabi-as -march=armv5te -mthumb -mthumb-interwork -c Hijack_GbaPal.s -o Hijack_GbaPal.o
 eval $DEVKITARM/bin/arm-none-eabi-as -march=armv5te -mthumb -mthumb-interwork -c Hijack_BattleDataPtrSave.s -o Hijack_BattleDataPtrSave.o
 
@@ -45,7 +45,7 @@ eval $DEVKITARM/bin/arm-none-eabi-objcopy -O binary -j .text Hijack_GbaPal.o tem
 od -An -t x1 temp_bin | ./binpatch $patched_arm9bin 502E0
 eval $DEVKITARM/bin/arm-none-eabi-objcopy -O binary -j .text Hijack_BattleSprite2.o temp_bin
 od -An -t x1 temp_bin | ./binpatch $patched_arm9bin 50320
-eval $DEVKITARM/bin/arm-none-eabi-objcopy -O binary -j .text Hijack_BattleSprite3.o temp_bin
+eval $DEVKITARM/bin/arm-none-eabi-objcopy -O binary -j .text Hijack_PersonalityTableBuild.o temp_bin
 od -An -t x1 temp_bin | ./binpatch $patched_arm9bin 50380
 eval $DEVKITARM/bin/arm-none-eabi-objcopy -O binary -j .text Hijack_BattleDataPtrSave.o temp_bin
 od -An -t x1 temp_bin | ./binpatch $patched_arm9bin 50400
@@ -64,11 +64,11 @@ echo DB F7 47 FE | ./binpatch $patched_arm9bin 74572 # GetBoxPkmnData
 # hijack some pokedex routine to jump to Hijack_PersonalityClearPokedex.s
 echo 28 F0 87 FE | ./binpatch $patched_arm9bin 2756E
 
-
-echo 2C F6 B7 FD | ./binpatch $patched_overlay12bin 3B0E
-echo 2E F6 FB FD | ./binpatch $patched_overlay12bin 1B06
-echo 2C F6 B4 FE | ./binpatch $patched_overlay12bin 39F4
-echo 4D F0 54 F9 | ./binpatch $patched_arm9bin 3034
-echo 12 F6 27 FA | ./binpatch $patched_overlay16bin 2E6E
+# hijack stuff related to in-battle GBA-styled sprites
+echo 2C F6 B7 FD | ./binpatch $patched_overlay12bin 3B0E # Hijack_BattleSprite.s (on change sprite during switchout)
+echo 2E F6 FB FD | ./binpatch $patched_overlay12bin 1B06 # Hijack_BattleSprite2.s (on change sprite during move animation)
+echo 2C F6 B4 FE | ./binpatch $patched_overlay12bin 39F4 # Hijack_PersonalityTableBuild.s (on change sprite during switchout)
+echo 4D F0 54 F9 | ./binpatch $patched_arm9bin      3034 # Hijack_GbaPal.s (on any GBA-styled sprite palette load)
+echo 12 F6 27 FA | ./binpatch $patched_overlay16bin 2E6E # Hijack_BattleDataPtrSave.s (GetMainBattleData_GetAdrOfPkmnInParty)
 
 rm temp_bin

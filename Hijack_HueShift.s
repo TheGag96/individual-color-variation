@@ -1,8 +1,8 @@
 .thumb
 
-Hijack: @ hook at 0x9018, insert at 0x5023c
+Hijack: @ hook at 0x9018
   ldr r0, [r0, #0x0C] @ pointer to palette
-  ldr r1, =0x02050200 @ location of "free ram"
+  ldr r1, =0x02050200 @ location of "free ram" containing personality of last read pkmn data
   ldr r1, [r1, #0]
   lsr r1, r1, #16
 
