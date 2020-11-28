@@ -29,6 +29,10 @@ List of changed Pokémon (so far):
 
 **Scyther** - Made to be red-orange, which makes shiny Scyther and Scizor effectively be a loose swap of their normal colors.
 
+![Elekid](ShinyChanges/elekid_shiny.png) ![Electabuzz](ShinyChanges/electabuzz_shiny.png) ![Electivire](ShinyChanges/electivire_shiny.png)
+
+**Elekid, Electabuzz, Electivire** - Light blue, with Elekid being slightly more Cyan. Electivire has gold tips.
+
 ![Articuno](ShinyChanges/articuno_shiny.png)
 
 **Articuno** - Lavender.
@@ -48,10 +52,6 @@ List of changed Pokémon (so far):
 ![Combusken](ShinyChanges/combusken_shiny.png)
 
 **Combusken** - Changed to match the color change made in Sword/Shield.
-
-![Elekid](ShinyChanges/elekid_shiny.png) ![Electabuzz](ShinyChanges/electabuzz_shiny.png) ![Electivire](ShinyChanges/electivire_shiny.png)
-
-**Elekid, Electabuzz, Electivire** - Light blue, with Elekid being slightly more Cyan. Electivire has gold tips.
 
 ![Piplup](ShinyChanges/piplup_shiny.png) ![Prinplup](ShinyChanges/prinplup_shiny.png) ![Empoleon](ShinyChanges/empoleon_shiny.png)
 
