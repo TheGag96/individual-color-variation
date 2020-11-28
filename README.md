@@ -62,14 +62,15 @@ List of changed Pokémon (so far):
 
 ## Building
 
-1. Install a [D compiler](https://dlang.org/download.html).
-2. Use a program like Nitro Explorer 3 to extract `arm9.bin` from your Platinum ROM.
-3. Place it in the root folder of this repo, and name it `arm9_vanilla.bin`
-4. Run `./build.sh`.
-5. Inject `arm9_patched.bin` back into `arm9.bin`.
-6. Extract `pl_pokegra.narc`.
-7. For each image in the `ShinyChanges` folder, insert that image to the proper place using "Pokemon Ds/Pic Platinum". (Note that some Pokémon might have changes to the base sprite.)
-8. If you want to be really thorough, extract `pokegra.narc` and replace each changed palette entry (only the palette ones, not the image ones!).
+1. Install [devkitARM](https://devkitpro.org/wiki/Getting_Started).
+2. Install a [D compiler](https://dlang.org/download.html).
+3. Use a program like Nitro Explorer 3 to extract `arm9.bin`, `overlay9-12.bin`, and `overlay9-16.bin` from your Platinum ROM.
+4. Place them in the root folder of this repo, and name them to `arm9_vanilla.bin`, `overlay12_vanilla.bin`, and `overlay16_vanilla.bin`, respectively.
+5. Run `./build.sh`.
+6. Inject `arm9_patched.bin`, `overlay12_patched.bin`, and `overlay16_patched.bin` back into `arm9.bin`, `overlay9-12.bin`, and `overlay9-16.bin`, respectively.
+7. Extract `pl_pokegra.narc`.
+8. For each image in the `ShinyChanges` folder, insert that image to the proper place using "Pokemon Ds/Pic Platinum". (Note that some Pokémon might have changes to the base sprite.)
+9. If you want to be really thorough, extract `pokegra.narc` and replace each changed palette entry (only the palette ones, not the image ones!).
 
 
 ## Credits
