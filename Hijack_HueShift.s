@@ -7,9 +7,6 @@ Hijack: @ hook at 0x9018, insert at 0x5023c
   lsr r1, r1, #16
 
   push {r0, r2, lr}
-  ldr r2, =0x020501F8
-  str r1, [r2, #0]
-
   ldr r3, =0x020500BD @ location of code from hueshift.c
   blx r3
   pop {r1, r2, r3}    @ note that the saved r0 was pushed into r1, which effectively does what the hijacked code did
