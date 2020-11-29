@@ -21,7 +21,7 @@ List of changed Pokémon (so far):
 
 **Meowth, Persian** - Mint green to complement vanilla shiny Meowth's pink, and with a silver coin and ears, respectively.
 
-![Abra](ShinyChanges/abra_shiny.png) ![Kadabra](ShinyChanges/Kadabra_shiny.png)
+![Abra](ShinyChanges/abra_shiny.png) ![Kadabra](ShinyChanges/kadabra_shiny.png)
 
 **Abra, Kadabra** - More pink instead of brown to match, and create a gradient towards, shiny Alakazam.
 
