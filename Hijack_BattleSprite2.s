@@ -1,6 +1,6 @@
 .thumb
 
-Hijack_BattleSprite2: @ hook at overlay 12, 0x1B06 (0x0221726)
+Hijack_BattleSprite2: @ hook at overlay 12, 0x1B06 (0x02221726)
   push {lr}
   push {r0, r1}
 

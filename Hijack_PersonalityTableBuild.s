@@ -1,6 +1,6 @@
 .thumb
 
-Hijack_PersonalityTableBuild: @ hook at overlay 12, 0x39F4 (0x0223614)
+Hijack_PersonalityTableBuild: @ hook at overlay 12, 0x39F4 (0x02223614)
   .start:
 
   push {lr}
