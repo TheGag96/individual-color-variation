@@ -35,7 +35,7 @@ List of changed Pokémon (so far):
 
 ![Normal Gengar](ShinyChanges/gengar_normal.png)
 
-**Haunter, Gengar** - Tried to make a sensible gradient from Gastly to Mega Gengar (purple -> white with blue highlights). Normal Gengar has been also modified to be like his [anime palette](https://static.wikia.nocookie.net/pokemon/images/8/8a/Morty_Gengar.png/revision/latest?cb=20150821055940).
+**Haunter, Gengar** - Tried to make a sensible gradient from Gastly to Mega Gengar (purple -> white with blue highlights). Normal Gengar has been also modified to be like his [anime palette](https://static.wikia.nocookie.net/pokemon/images/8/8a/Morty_Gengar.png).
 
 ![Scyther](ShinyChanges/scyther_shiny.png)
 
@@ -111,7 +111,7 @@ The added code used to make this work are inserted in `arm9.bin` at `0x5003C` th
 
 | Address      | Description                                                                                                                                                                                                    |
 |--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `0x020501E0` | Personality value of player/partner Pokémon 1                                                                                                                                                                  |
+| `0x020501E0` | Personality value of player Pokémon 1                                                                                                                                                                  |
 | `0x020501E4` | Personality value of enemy Pokémon 1                                                                                                                                                                           |
 | `0x020501E8` | Personality value of player/partner Pokémon 2                                                                                                                                                                  |
 | `0x020501EC` | Personality value of enemy Pokémon 2                                                                                                                                                                           |
