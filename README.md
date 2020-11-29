@@ -17,13 +17,23 @@ List of changed Pokémon (so far):
 
 **Nidoqueen** - Colors made to look like Nidoking, which matches the pattern set by all other members of the Nidoran lines.
 
+![Meowth](ShinyChanges/meowth_shiny.png) ![Persian](ShinyChanges/persian_shiny.png)
+
+**Meowth, Persian** - Mint green to complement vanilla shiny Meowth's pink, and with a silver coin and ears, respectively.
+
+![Abra](ShinyChanges/abra_shiny.png) ![Kadabra](ShinyChanges/Kadabra_shiny.png)
+
+**Abra, Kadabra** - More pink instead of brown to match, and create a gradient towards, shiny Alakazam.
+
 ![Seel](ShinyChanges/seel_shiny.png) ![Dewgong](ShinyChanges/dewgong_shiny.png)
 
 **Seel, Dewgong** - Made to look more visibly gold.
 
 ![Haunter](ShinyChanges/haunter_shiny.png) ![Gengar](ShinyChanges/gengar_shiny.png)
 
-**Haunter, Gengar** - Tried to make a sensible gradient from Gastly to Mega Gengar (purple -> white with blue highlights).
+![Normal Gengar](ShinyChanges/gengar_normal.png)
+
+**Haunter, Gengar** - Tried to make a sensible gradient from Gastly to Mega Gengar (purple -> white with blue highlights). Normal Gengar has been also modified to be like his [anime palette](https://static.wikia.nocookie.net/pokemon/images/8/8a/Morty_Gengar.png/revision/latest?cb=20150821055940).
 
 ![Scyther](ShinyChanges/scyther_shiny.png)
 
@@ -32,6 +42,10 @@ List of changed Pokémon (so far):
 ![Elekid](ShinyChanges/elekid_shiny.png) ![Electabuzz](ShinyChanges/electabuzz_shiny.png) ![Electivire](ShinyChanges/electivire_shiny.png)
 
 **Elekid, Electabuzz, Electivire** - Light blue, with Elekid being slightly more Cyan. Electivire has gold tips.
+
+![Munchlax](ShinyChanges/munchlax_shiny.png) ![Snorlax](ShinyChanges/snorlax_shiny.png)
+
+**Munchlax, Snorlax** - Like a brown bear.
 
 ![Articuno](ShinyChanges/articuno_shiny.png)
 
@@ -45,6 +59,10 @@ List of changed Pokémon (so far):
 
 **Espeon** - Less overly saturated.
 
+![Leafeon](ShinyChanges/leafeon_shiny.png)
+
+**Leafeon** - Fall colors, inspired by [various](https://aminoapps.com/c/shiny-pokemon-amino/page/blog/do-you-wish-shiny-leafeon-and-shiny-glaceon-was-batter/7eJV_e2nUPuEW5ZJBD4wELq7qDGjnMQboM) [posts](https://www.deviantart.com/littlepie95/art/Improved-Shiny-Leafeon-806020174) suggesting the idea.
+
 ![Magcargo](ShinyChanges/magcargo_shiny.png)
 
 **Magcargo** - Lava part matches shiny Slugma.
@@ -52,6 +70,10 @@ List of changed Pokémon (so far):
 ![Combusken](ShinyChanges/combusken_shiny.png)
 
 **Combusken** - Changed to match the color change made in Sword/Shield.
+
+![Regice](ShinyChanges/regice_shiny.png)
+
+**Regice** - A deep dark blue, inspired by [this post](https://www.reddit.com/r/MandJTV/comments/ibqj33/shiny_regice_redesign_its_not_much_but_its_better/) by [/u/SmallBigBrainBoi](https://www.reddit.com/user/SmallBigBrainBoi).
 
 ![Piplup](ShinyChanges/piplup_shiny.png) ![Prinplup](ShinyChanges/prinplup_shiny.png) ![Empoleon](ShinyChanges/empoleon_shiny.png)
 
@@ -82,4 +104,3 @@ List of changed Pokémon (so far):
 ## Credits
 
 * [MKHT](https://twitter.com/mkht_real) - Lots of help choosing shiny colors.
-* cjgart2000 - [This post](https://imgur.com/t/shinypokemon/LMnl0Jx) inspired some of the new shiny colors.
