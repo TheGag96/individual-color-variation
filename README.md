@@ -35,7 +35,7 @@ List of changed Pokémon (so far):
 
 ![Normal Gengar](ShinyChanges/gengar_normal.png)
 
-**Haunter, Gengar** - Tried to make a sensible gradient from Gastly to Mega Gengar (purple -> white with blue highlights). Normal Gengar has been also modified to be like his [anime palette](https://static.wikia.nocookie.net/pokemon/images/8/8a/Morty_Gengar.png).
+**Haunter, Gengar** - Tried to make a sensible gradient from Gastly to Mega Gengar (purple -> white with blue highlights). Normal Gengar has been also modified to be like its [anime palette](https://static.wikia.nocookie.net/pokemon/images/8/8a/Morty_Gengar.png). *(The image data of this sprite has also been tweaked.)*
 
 ![Scyther](ShinyChanges/scyther_shiny.png)
 
@@ -65,9 +65,33 @@ List of changed Pokémon (so far):
 
 **Leafeon** - Fall colors, inspired by [various](https://aminoapps.com/c/shiny-pokemon-amino/page/blog/do-you-wish-shiny-leafeon-and-shiny-glaceon-was-batter/7eJV_e2nUPuEW5ZJBD4wELq7qDGjnMQboM) [posts](https://www.deviantart.com/littlepie95/art/Improved-Shiny-Leafeon-806020174) suggesting the idea.
 
+![Gligar](ShinyChanges/gligar_normal.png)
+
+**Gligar** - Normal Gligar has been changed to its HGSS colors, which are much closer to the official artwork. (No need to change the shiny palette, as this now makes them very distinguished.)
+
 ![Magcargo](ShinyChanges/magcargo_shiny.png)
 
 **Magcargo** - Lava part matches shiny Slugma.
+
+![Mantyke](ShinyChanges/mantyke_shiny.png) ![Mantine](ShinyChanges/mantine_shiny.png)
+
+**Mantyke, Mantine** - Green and aqua-ish scheme, based on [this](https://www.deviantart.com/rayquazaflygon/art/Alt-Shiny-Mantine-711360951) post by RayquazaFlygon.
+
+![Phanphy](ShinyChanges/phanphy_shiny.png)
+
+**Phanphy** - Inverted from its normal palette.
+
+![Smoochum](ShinyChanges/smoochum_shiny.png)
+
+**Smoochum** - Lavender and light-pink body, and platinum blonde hair to match shiny Jynx.
+
+![Magby](ShinyChanges/magby_shiny.png)
+
+**Magby** - Red-pink and pink to match Magmar and Magmortar's shiny colors.
+
+![Happiny](ShinyChanges/happiny_shiny.png) ![Blissey](ShinyChanges/blissey_shiny.png)
+
+**Happiny, Blissey** - Green and light-gold-tan to match shiny Chansey. *(The image data of this sprite has also been tweaked, including the D/P sprite.)*
 
 ![Combusken](ShinyChanges/combusken_shiny.png)
 
@@ -84,6 +108,10 @@ List of changed Pokémon (so far):
 ![Gabite](ShinyChanges/gabite_shiny.png) ![Garchomp](ShinyChanges/garchomp_shiny.png)
 
 **Gabite, Garchomp** - Tried to make them consistent with shiny Gible (deeper blue, yellow/orange belly).
+
+![Snover](ShinyChanges/snover_shiny.png) ![Abomasnow](ShinyChanges/abomasnow_shiny.png)
+
+**Snover, Abomasnow** - Extremeties made a deeper blue to make the worst case between normal and shiny less ambiguous.
 
 ![Dusknoir](ShinyChanges/dusknoir_shiny.png)
 
