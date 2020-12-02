@@ -59,6 +59,10 @@ List of changed Pokémon (so far):
 
 **Zapdos** - Brown.
 
+![Sunkern](ShinyChanges/sunkern_shiny.png) ![Sunflora](ShinyChanges/sunflora_shiny.png)
+
+**Sunkern, Sunflora** - Purple and a more blueish green, resembling a [purple sunflower](https://m.media-amazon.com/images/I/71rqiFQLLiL._AC_SL1203_.jpg).
+
 ![Espeon](ShinyChanges/espeon_shiny.png)
 
 **Espeon** - Less overly saturated.
@@ -99,6 +103,14 @@ List of changed Pokémon (so far):
 
 **Combusken** - Changed to match the color change made in Sword/Shield.
 
+![Loudred](ShinyChanges/loudred_shiny.png) ![Exploud](ShinyChanges/loudred_shiny.png)
+
+**Loudred, Exploud** - Lime green details instead of yellow to match shiny Whismur.
+
+![Plusle](ShinyChanges/plusle_shiny.png)
+
+**Plusle** - Hot pink/magenta.
+
 ![Regice](ShinyChanges/regice_shiny.png)
 
 **Regice** - A deep dark blue, inspired by [this post](https://www.reddit.com/r/MandJTV/comments/ibqj33/shiny_regice_redesign_its_not_much_but_its_better/) by [/u/SmallBigBrainBoi](https://www.reddit.com/user/SmallBigBrainBoi).
@@ -118,6 +130,10 @@ List of changed Pokémon (so far):
 ![Dusknoir](ShinyChanges/dusknoir_shiny.png)
 
 **Dusknoir** - Red to match shiny Duskull and Dusclops.
+
+![Froslass](ShinyChanges/froslass_shiny.png)
+
+**Froslass** - A rose/sakura body with a violet belt/bow.
 
 
 ## Building
