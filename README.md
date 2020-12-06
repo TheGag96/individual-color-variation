@@ -135,6 +135,10 @@ List of changed Pokémon (so far):
 
 **Froslass** - A rose/sakura body with a violet belt/bow.
 
+![Phione](ShinyChanges/phione_shiny.png) ![Manaphy](ShinyChanges/manaphy_shiny.png)
+
+**Phione, Manaphy** - Purplish-blue body, cyan eyelashes for Manaphy, purple gem. Based on [this post](https://www.deviantart.com/epicgordoman/art/Shiny-Manaphy-747110225) by EpicGordoMan.
+
 
 ## Building
 
