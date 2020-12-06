@@ -1,6 +1,6 @@
 .thumb
 
-Hijack_PersonalitySave: @ hook at 0x74472 and 0x74572, insert at 0x50204
+Hijack_PersonalitySave: @ hook at 0x74472 and 0x74572
   push {lr}
   push {r0, r1}
 

@@ -17,7 +17,6 @@ Hijack_GbaPal: @ hook at 0x3034
   ldrh r1, [r4, #0x1C]
   lsl r1, r1, #2
   ldr r1, [r4, r1]
-  lsr r1, r1, #16
 
   @ call hue shifting code (from hueshift.c)
   push {r2, r3}

@@ -33,7 +33,10 @@ __attribute__((always_inline)) static inline s32 roundClampShift(fixed v) {
  * Performs a hue shift on the colors in a given palette. Index must be from 0 to 63.
  * Values 0-31 shift right, while values 32-63 shift left (but 32 is treated as 0, 33 as 1, etc.).
  ***/
-void shiftPalette(u16* colors, u32 index) {
+void shiftPalette(u16* colors, u32 personality) {
+  //Use third personality byte to determine color;
+  u32 index = personality >> 16;
+
   //Limit the index to valid bounds
   index = index & (64-1);
 
