@@ -103,7 +103,7 @@ List of changed Pokémon (so far):
 
 **Combusken** - Changed to match the color change made in Sword/Shield.
 
-![Loudred](ShinyChanges/loudred_shiny.png) ![Exploud](ShinyChanges/loudred_shiny.png)
+![Loudred](ShinyChanges/loudred_shiny.png) ![Exploud](ShinyChanges/exploud_shiny.png)
 
 **Loudred, Exploud** - Lime green details instead of yellow to match shiny Whismur.
 
