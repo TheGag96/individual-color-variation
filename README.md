@@ -23,7 +23,7 @@ List of changed Pokémon (so far):
 
 ![Meowth](ShinyChanges/meowth_shiny.png) ![Persian](ShinyChanges/persian_shiny.png)
 
-**Meowth, Persian** - Mint green to complement vanilla shiny Meowth's pink, and with a silver coin and ears, respectively.
+**Meowth, Persian** - Mint green to complement vanilla shiny Meowth's pink, and with a silver coin and ears, respectively. *(The image data of Meowth's sprite has also been tweaked.)*
 
 ![Abra](ShinyChanges/abra_shiny.png) ![Kadabra](ShinyChanges/kadabra_shiny.png)
 
@@ -37,7 +37,7 @@ List of changed Pokémon (so far):
 
 ![Normal Gengar](ShinyChanges/gengar_normal.png)
 
-**Haunter, Gengar** - Tried to make a sensible gradient from Gastly to Mega Gengar (purple -> white with blue highlights). Normal Gengar has been also modified to be like its [anime palette](https://static.wikia.nocookie.net/pokemon/images/8/8a/Morty_Gengar.png). *(The image data of this sprite has also been tweaked.)*
+**Haunter, Gengar** - Tried to make a sensible gradient from Gastly to Mega Gengar (purple -> white with blue highlights). Normal Gengar has been also modified to be like its [anime palette](https://static.wikia.nocookie.net/pokemon/images/8/8a/Morty_Gengar.png).
 
 ![Scyther](ShinyChanges/scyther_shiny.png)
 
@@ -93,7 +93,7 @@ List of changed Pokémon (so far):
 
 ![Happiny](ShinyChanges/happiny_shiny.png) ![Blissey](ShinyChanges/blissey_shiny.png)
 
-**Happiny, Blissey** - Green and light-gold-tan to match shiny Chansey. *(The image data of this sprite has also been tweaked.)*
+**Happiny, Blissey** - Green and light-gold-tan to match shiny Chansey. *(The image data of Blissey's sprite has also been tweaked.)*
 
 ![Combusken](ShinyChanges/combusken_shiny.png)
 
