@@ -1,10 +1,10 @@
 .thumb
 
-Hijack: @ hook at 0x9018
+Hijack: @ hook at 0x999C
   ldr r0, [r0, #0x0C] @ pointer to palette
   push {r0, r2, lr}
 
-  ldr r1, =0x020501E0 @ location of "free ram" area
+  ldr r1, =0x023C81A4 @ location of "free ram" area
   ldr r2, [r1, #0x18]
   ldr r3, =0x00BA771E
   cmp r2, r3
@@ -23,7 +23,7 @@ Hijack: @ hook at 0x9018
 
   .shift:
 
-  ldr r3, =0x020500BD @ location of code from hueshift.c
+  ldr r3, =0x023C8081 @ location of code from hueshift.c
   blx r3
 
   pop {r1, r2, r3}    @ note that the saved r0 was pushed into r1, which effectively does what the hijacked code did

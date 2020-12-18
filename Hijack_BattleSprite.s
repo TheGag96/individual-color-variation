@@ -1,13 +1,13 @@
 .thumb
 
-Hijack_BattleSprite: @ hook at overlay 12, 0x3B0E (0x022372E)
+Hijack_BattleSprite: @ hook at overlay 7, 0x3FA6 (0x0221FDC6)
   push {lr}
   push {r0, r1}
 
   ldr r0, =0xBEEF0000
   ldr r1, [sp, #0x38] @ loop variable
   add r1, r1, r0
-  ldr r0, =0x020501FC @ this spot will be read by routine that loads palette
+  ldr r0, =0x023C81C0 @ this spot will be read by routine that loads palette
   str r1, [r0]
 
   @ restore old code

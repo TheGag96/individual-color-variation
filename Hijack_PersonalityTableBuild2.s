@@ -1,12 +1,12 @@
 .thumb
 
-Hijack_PersonalityTableBuild2: @ hook at overlay 16, 0x26E8 (0x0223D828)
+Hijack_PersonalityTableBuild2: @ hook at overlay 12, 0x283C (0x0223A0FC)
   .start:
 
   push {lr}
   push {r0-r7}
 
-  ldr r3, =0x020501E0 @ table of active personality values (and also cached battle data ptr)
+  ldr r3, =0x023C81A4 @ table of active personality values (and also cached battle data ptr)
 
   mov r5, #0          @ loop variable
 
@@ -14,7 +14,7 @@ Hijack_PersonalityTableBuild2: @ hook at overlay 16, 0x26E8 (0x0223D828)
   ldr r2, =0x219C
   add r6, r6, r2      @ r6 now contains pointer to active battle member array
 
-  ldr r7, =0x0223DFAD @ GetMainBattleData_GetAdrOfPkmnInParty
+  ldr r7, =0x0223A881 @ GetMainBattleData_GetAdrOfPkmnInParty
 
   .loop:
 

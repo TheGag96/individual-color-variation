@@ -1,11 +1,11 @@
 .thumb
 
-Hijack_BattleEndCaught: @ hook at overlay 16, 0xEDE0 (0x02249F20)
+Hijack_BattleEndCaught: @ hook at overlay 12, 0xF090 (0x02246950)
   push {lr}
   push {r0, r1}
 
   mov r0, #0
-  ldr r1, =0x020501F8 @ location of in battle flag
+  ldr r1, =0x023C81BC @ location of in battle flag
   str r0, [r1]
 
   @ restore old code

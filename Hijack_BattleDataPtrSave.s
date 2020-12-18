@@ -1,11 +1,11 @@
 .thumb
 
-Hijack_BattleDataPtrSave: @ hook at overlay 16, 0x2e6e (0x0223DFAE, GetMainBattleData_GetAdrOfPkmnInParty)
+Hijack_BattleDataPtrSave: @ hook at overlay 12, 0x2FC2 (0x223A882, GetMainBattleData_GetAdrOfPkmnInParty)
   push {lr}
   push {r0, r1}
 
   @ save off battle data context pointer so it can be easily retrieved later
-  ldr r1, =0x020501E0
+  ldr r1, =0x023C81A4
   str r0, [r1, #0x10]
 
   @ restore old code

@@ -1,12 +1,12 @@
 .thumb
 
-Hijack_PersonalityTableBuild: @ hook at overlay 12, 0x39F4 (0x02223614)
+Hijack_PersonalityTableBuild: @ hook at overlay 7, 0x3E8C (0x0221FCAC)
   .start:
 
   push {lr}
   push {r0-r6}
 
-  ldr r3, =0x020501E0 @ table of active personality values (and also cached battle data ptr)
+  ldr r3, =0x023C81A4 @ table of active personality values (and also cached battle data ptr)
   add r4, r0, #0 @ save loop variable
 
   .write_table:
@@ -34,7 +34,7 @@ Hijack_PersonalityTableBuild: @ hook at overlay 12, 0x39F4 (0x02223614)
   mov r1, r4
 
   push {r3, r4}
-  ldr r3, =0x0223DFAD @ GetMainBattleData_GetAdrOfPkmnInParty
+  ldr r3, =0x0223A881 @ GetMainBattleData_GetAdrOfPkmnInParty
   blx r3
   pop {r3, r4}
 

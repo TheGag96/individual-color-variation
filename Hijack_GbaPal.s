@@ -1,11 +1,11 @@
 .thumb
 
-Hijack_GbaPal: @ hook at 0x3034
+Hijack_GbaPal: @ hook at 0x31E4
   push {lr}
   push {r0, r1, r4}
 
   ldr r0, =0xBEEF
-  ldr r4, =0x020501E0 
+  ldr r4, =0x023C81A4 
   ldrh r1, [r4, #0x1E]   @ should be 0xBEEFXXXX where XXXX is index into active personality table
 
   @ do not continue if flag variable was not set to 0xBEEF earlier up the call chain
@@ -20,7 +20,7 @@ Hijack_GbaPal: @ hook at 0x3034
 
   @ call hue shifting code (from hueshift.c)
   push {r2, r3}
-  ldr r3, =0x020500BD
+  ldr r3, =0x023C8081
   blx r3
   pop {r2, r3}
 
