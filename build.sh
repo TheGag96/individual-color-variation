@@ -5,6 +5,9 @@ set -e
 original_arm9bin=arm9_hg_vanilla.bin
 patched_arm9bin=arm9_hg_patched.bin
 
+original_overlay1bin=overlay1_hg_vanilla.bin
+patched_overlay1bin=overlay1_hg_patched.bin
+
 original_overlay7bin=overlay7_hg_vanilla.bin
 patched_overlay7bin=overlay7_hg_patched.bin
 
@@ -37,12 +40,15 @@ compile_asm Hijack_BattleStart.s
 compile_asm Hijack_BattleEnd.s
 compile_asm Hijack_BattleEndCaught.s
 compile_asm Hijack_MiscSprite.s
+compile_asm Hijack_WalkingPokemon.s
+compile_asm Hijack_WalkingPokemonDetect.s
 
 # compile binary patch tool
 dmd binpatch.d
 
 # prepare patched output .bin file
 cp $original_arm9bin $patched_arm9bin
+cp $original_overlay1bin $patched_overlay1bin
 cp $original_overlay7bin $patched_overlay7bin
 cp $original_overlay12bin $patched_overlay12bin
 
@@ -75,6 +81,8 @@ patch_code Hijack_BattleEnd               404
 patch_code Hijack_BattleEndCaught         424
 patch_code Hijack_PersonalityTableBuild2  444
 patch_code Hijack_MiscSprite              4A4
+patch_code Hijack_WalkingPokemon          4C4
+patch_code Hijack_WalkingPokemonDetect    524
 
 # geneate sin/cos table and patch to its location
 dmd tableprinter.d
@@ -114,5 +122,9 @@ echo 8E F1 A2 F9 | ./binpatch $patched_overlay12bin 283C # Hijack_PersonalityTab
 
 # hijack stuff needed to get misc sprite loads working (HM use, introduction)
 echo B4 F3 10 F8 | ./binpatch $patched_arm9bin 14480 # Hijack_MiscSprite.s
+
+# hijack stuff needed to hue shift walking/following Pokemon
+echo CD F1 F5 FF | ./binpatch $patched_overlay1bin 14BD6 # Hijack_WalkingPokemon.s
+echo E2 F1 3C F8 | ./binpatch $patched_overlay1bin BA8 #  11C0E # Hijack_WalkingPokemonDetect.s
 
 rm temp_bin
