@@ -31,7 +31,7 @@ List of changed Pokémon (so far):
 
 ![Seel](ShinyChanges/seel_shiny.png) ![Dewgong](ShinyChanges/dewgong_shiny.png)
 
-**Seel, Dewgong** - Made to look more visibly gold.
+**Seel, Dewgong** - Made to look more visibly gold. The color used in the highlight in Seel's eyes (added in HG/SS) has been fixed for the shiny palette (Game Freak forgot to change the color, so it just stayed the default "unused magenta" color).
 
 ![Haunter](ShinyChanges/haunter_shiny.png) ![Gengar](ShinyChanges/gengar_shiny.png)
 
