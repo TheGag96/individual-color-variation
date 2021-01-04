@@ -1,9 +1,9 @@
 /PlatinumFiles/
+/PokEditor/
 /Working/
 /Programs/
 /ShinyChanges/*.txt
 /ShinyChanges/FollowPalsExtracted
-/PokEditor
 *.narc
 *.nds
 *.o
