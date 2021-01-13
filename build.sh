@@ -14,6 +14,9 @@ patched_overlay7bin=overlay7_hg_patched.bin
 original_overlay12bin=overlay12_hg_vanilla.bin
 patched_overlay12bin=overlay12_hg_patched.bin
 
+original_overlay14bin=overlay14_hg_vanilla.bin
+patched_overlay14bin=overlay14_hg_patched.bin
+
 original_customoverlaynarc=custom_overlay_hg_vanilla.narc
 patched_customoverlaynarc=custom_overlay_hg.narc
 customoverlay_size=$((32*1024))
@@ -42,15 +45,18 @@ compile_asm Hijack_BattleEndCaught.s
 compile_asm Hijack_MiscSprite.s
 compile_asm Hijack_WalkingPokemon.s
 compile_asm Hijack_WalkingPokemonDetect.s
+compile_asm Hijack_BoxSprite1.s
+compile_asm Hijack_BoxSprite2.s
 
 # compile binary patch tool
 dmd binpatch.d
 
-# prepare patched output .bin file
+# prepare patched output .bin files
 cp $original_arm9bin $patched_arm9bin
 cp $original_overlay1bin $patched_overlay1bin
 cp $original_overlay7bin $patched_overlay7bin
 cp $original_overlay12bin $patched_overlay12bin
+cp $original_overlay14bin $patched_overlay14bin
 
 # use Mikelan98's and Nomura's patches to load file a/0/2/8/0.nclr at startup, which can be used as a place for free code space
 # see https://pokehacking.com/tutorials/ramexpansion/
@@ -83,6 +89,8 @@ patch_code Hijack_PersonalityTableBuild2  444
 patch_code Hijack_MiscSprite              4A4
 patch_code Hijack_WalkingPokemon          4C4
 patch_code Hijack_WalkingPokemonDetect    524
+patch_code Hijack_BoxSprite1              544
+patch_code Hijack_BoxSprite2              564
 
 # geneate sin/cos table and patch to its location
 dmd tableprinter.d
@@ -125,6 +133,10 @@ echo B4 F3 10 F8 | ./binpatch $patched_arm9bin 14480 # Hijack_MiscSprite.s
 
 # hijack stuff needed to hue shift walking/following Pokemon
 echo CD F1 F5 FF | ./binpatch $patched_overlay1bin 14BD6 # Hijack_WalkingPokemon.s
-echo E2 F1 3C F8 | ./binpatch $patched_overlay1bin BA8 #  11C0E # Hijack_WalkingPokemonDetect.s
+echo E2 F1 3C F8 | ./binpatch $patched_overlay1bin BA8   # Hijack_WalkingPokemonDetect.s
+
+# hijack stuff needed to get PC box sprites working
+echo D4 F1 3F FF | ./binpatch $patched_overlay14bin DDC2 # Hijack_BoxSprite1.s (on pc box pokemon palette load)
+echo C0 F3 65 FB | ./binpatch $patched_arm9bin      7E96 # Hijack_BoxSprite2.s (general palette upload)
 
 rm temp_bin
