@@ -145,14 +145,17 @@ List of changed Pokémon (so far):
 5. Open up your ROM in NSMBe (ignoring the error that comes up on load when using MeroMero's build).
 6. Under "Tools/Options", select "Decompress ARM9 binary".
 7. Under "ROM File Browser", select `arm9.bin`, click "Extract", and save as `arm9_hg_vanilla.bin` in the root folder of this repo.
-8. In the `overlay9` folder, select `overlay9_7.bin`, click "Decompress overlay", click "Extract", and save as `overlay7_hg_vanilla.bin`. Do similarly with overlays 12 and 14 (`overlay12_hg_vanilla.bin`, `overlay14_hg_vanilla.bin`).
+8. In the `overlay9` folder, select `overlay9_1.bin`, click "Decompress overlay", click "Extract", and save as `overlay1_hg_vanilla.bin`. Do similarly with overlays 7, 12, and 14 (`overlay1_hg_vanilla.bin`, `overlay12_hg_vanilla.bin`, `overlay14_hg_vanilla.bin`).
 9. In the `root/a/0/2` folder, extract file `8` as `custom_overlay_hg_vanilla.narc`.
 10. On the command line, run `./build.sh`.
-11. In NSMBe, reinsert `arm9_hg_patched.bin`, `overlay7_hg_patched.bin`, `overlay12_hg_patched.bin`, and `overlay14_hg_patched.bin` back into `arm9.bin`, `overlay9_7.bin`, `overlay9_12.bin`, and `overlay9_14.bin`, respectively. For `arm9.bin`, you may need to hit "Decompress ARM9 Binary" to correctly insert it (not sure).
+11. In NSMBe, reinsert `arm9_hg_patched.bin`, `overlay1_hg_patched.bin`, `overlay7_hg_patched.bin`, `overlay12_hg_patched.bin`, and `overlay14_hg_patched.bin` back into `arm9.bin`, `overlay9_7.bin`, `overlay9_12.bin`, and `overlay9_14.bin`, respectively. For `arm9.bin`, you may need to hit "Decompress ARM9 Binary" to correctly insert it (not sure).
 12. Extract `root/a/0/0/4` as `hg_pokegra.narc`.
 13. For each image in the `ShinyChanges` folder, insert that image to the proper place using ["Pokemon Ds/Pic Platinum"](https://projectpokemon.org/home/files/file/2085-pokedspic/). (Note that some Pokémon might have changes to the base sprite.)
 14. Reinsert `hg_pokegra.narc` back into `root/a/0/0/4`.
 15. If you want to be INSANELY thorough, extract `root/pbr/pokegra.narc` and replace each changed palette entry, and reinsert. (I think this has to do with Pokémon Battle Revolution - I doubt you really have to do this.)
+16. Extract `root/a/0/8/1` as `ow_sprites.narc`.
+17. Run `./pack_follow_pal.sh`.
+18. Insert the resulting `ow_sprites_patched.narc` to `root/a/0/8/1`.
 
 
 ## How It Works
