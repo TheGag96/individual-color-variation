@@ -4,6 +4,9 @@
 /Programs/
 /ShinyChanges/*.txt
 /ShinyChanges/FollowPalsExtracted
+*_SDSME/
+*_DSPRE_extracted/
+*_DSPRE_contents/
 *.narc
 *.nds
 *.o
