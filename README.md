@@ -149,13 +149,14 @@ List of changed Pokémon (so far):
 9. In the `root/a/0/2` folder, extract file `8` as `custom_overlay_hg_vanilla.narc`.
 10. On the command line, run `./build.sh`.
 11. In NSMBe, reinsert `arm9_hg_patched.bin`, `overlay1_hg_patched.bin`, `overlay7_hg_patched.bin`, `overlay12_hg_patched.bin`, and `overlay14_hg_patched.bin` back into `arm9.bin`, `overlay9_7.bin`, `overlay9_12.bin`, and `overlay9_14.bin`, respectively. For `arm9.bin`, you may need to hit "Decompress ARM9 Binary" to correctly insert it (not sure).
-12. Extract `root/a/0/0/4` as `hg_pokegra.narc`.
-13. For each image in the `ShinyChanges` folder, insert that image to the proper place using ["Pokemon Ds/Pic Platinum"](https://projectpokemon.org/home/files/file/2085-pokedspic/). (Note that some Pokémon might have changes to the base sprite.)
-14. Reinsert `hg_pokegra.narc` back into `root/a/0/0/4`.
-15. If you want to be INSANELY thorough, extract `root/pbr/pokegra.narc` and replace each changed palette entry, and reinsert. (I think this has to do with Pokémon Battle Revolution - I doubt you really have to do this.)
-16. Extract `root/a/0/8/1` as `ow_sprites.narc`.
-17. Run `./pack_follow_pal.sh`.
-18. Insert the resulting `ow_sprites_patched.narc` to `root/a/0/8/1`.
+12. Reinsert `custom_overlay_hg.narc` into `root/a/0/2/8`.
+13. Extract `root/a/0/0/4` as `hg_pokegra.narc`.
+14. For each image in the `ShinyChanges` folder, insert that image to the proper place using ["Pokemon Ds/Pic Platinum"](https://projectpokemon.org/home/files/file/2085-pokedspic/). (Note that some Pokémon might have changes to the base sprite.)
+15. Reinsert `hg_pokegra.narc` back into `root/a/0/0/4`.
+16. If you want to be INSANELY thorough, extract `root/pbr/pokegra.narc` and replace each changed palette entry, and reinsert. (I think this has to do with Pokémon Battle Revolution - I doubt you really have to do this.)
+17. Extract `root/a/0/8/1` as `ow_sprites.narc`.
+18. Run `./pack_follow_pal.sh`.
+19. Insert the resulting `ow_sprites_patched.narc` to `root/a/0/8/1`.
 
 
 ## How It Works
