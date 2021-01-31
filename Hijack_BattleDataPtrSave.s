@@ -1,6 +1,6 @@
 .thumb
 
-Hijack_BattleDataPtrSave: @ hook at overlay 12, 0x2FC2 (0x223A882, GetMainBattleData_GetAdrOfPkmnInParty)
+Hijack_BattleDataPtrSave: @ hook at overlay 12, 0x2FC2 (0x0223A882, GetMainBattleData_GetAdrOfPkmnInParty)
   push {lr}
   push {r0, r1}
 

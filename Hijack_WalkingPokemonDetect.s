@@ -1,6 +1,6 @@
 .thumb
 
-Hijack_WalkingPokemonDetect: @ hook at overlay 1, 0xBA8 (0x021E64A8)                  0x11C0E (0x021F750E)
+Hijack_WalkingPokemonDetect: @ hook at overlay 1, 0xBA8 (0x021E64A8)
   push {lr}
   push {r0, r1}
 
