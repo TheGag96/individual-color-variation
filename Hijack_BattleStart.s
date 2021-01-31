@@ -1,6 +1,6 @@
 .thumb
 
-Hijack_BattleStart: @ hook at overlay 16, 0x42 (0x0223B182)          ------- 0x4 (0x0223B144)
+Hijack_BattleStart: @ hook at overlay 16, 0x42 (0x0223B182)
   push {lr}
   push {r0, r1}
 
