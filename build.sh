@@ -48,8 +48,9 @@ compile_asm Hijack_WalkingPokemonDetect.s
 compile_asm Hijack_BoxSprite1.s
 compile_asm Hijack_BoxSprite2.s
 
-# compile binary patch tool
+# compile binary patch and hijack branch maker tools
 dmd binpatch.d
+dmd makebl.d
 
 # prepare patched output .bin files
 cp $original_arm9bin $patched_arm9bin
@@ -109,34 +110,34 @@ rm -rf extracted/$extracted_folder
 cd ../
 
 # hijack palette load function to jump to Hijack_HueShift.s
-echo BE F3 30 FC | ./binpatch $patched_arm9bin 999C
+./makebl 0200999C 023C8200 | ./binpatch $patched_arm9bin 999C
 
 # hijack GetPkmnData to jump to Hijack_PersonalitySave.s
-echo 59 F3 41 FE | ./binpatch $patched_arm9bin 6E542 # GetPkmnData
-echo 59 F3 C1 FD | ./binpatch $patched_arm9bin 6E642 # GetBoxPkmnData
+./makebl 0206E542 023C81C8 | ./binpatch $patched_arm9bin 6E542 # GetPkmnData
+./makebl 0206E642 023C81C8 | ./binpatch $patched_arm9bin 6E642 # GetBoxPkmnData
 
 # # hijack stuff related to in-battle GBA-styled sprites
-echo A8 F1 4D FA | ./binpatch $patched_overlay7bin  3FA6 # Hijack_BattleSprite.s (on change sprite during switchout)
-echo AA F1 7B FC | ./binpatch $patched_overlay7bin  1BCA # Hijack_BattleSprite2.s (on change sprite during move animation)
-echo A8 F1 4A FB | ./binpatch $patched_overlay7bin  3E8C # Hijack_PersonalityTableBuild.s (on change sprite during switchout)
-echo C5 F3 5E F8 | ./binpatch $patched_arm9bin      31E4 # Hijack_GbaPal.s (on any GBA-styled sprite palette load)
-echo 8D F1 9F FD | ./binpatch $patched_overlay12bin 2FC2 # Hijack_BattleDataPtrSave.s (GetMainBattleData_GetAdrOfPkmnInParty)
+./makebl 0221FDC6 023C8264 | ./binpatch $patched_overlay7bin  3FA6 # Hijack_BattleSprite.s (on change sprite during switchout)
+./makebl 0221D9EA 023C82E4 | ./binpatch $patched_overlay7bin  1BCA # Hijack_BattleSprite2.s (on change sprite during move animation)
+./makebl 0221FCAC 023C8344 | ./binpatch $patched_overlay7bin  3E8C # Hijack_PersonalityTableBuild.s (on change sprite during switchout)
+./makebl 020031E4 023C82A4 | ./binpatch $patched_arm9bin      31E4 # Hijack_GbaPal.s (on any GBA-styled sprite palette load)
+./makebl 0223A882 023C83C4 | ./binpatch $patched_overlay12bin 2FC2 # Hijack_BattleDataPtrSave.s (GetMainBattleData_GetAdrOfPkmnInParty)
 
 # # hijack stuff needed to get in-battle normal sprites working
-echo 90 F1 6F FD | ./binpatch $patched_overlay12bin 42   # Hijack_BattleStart.s
-echo 90 F1 ED FC | ./binpatch $patched_overlay12bin 166  # Hijack_BattleEnd.s
-echo 81 F1 68 FD | ./binpatch $patched_overlay12bin F090 # Hijack_BattleEndCaught.s
-echo 8E F1 A2 F9 | ./binpatch $patched_overlay12bin 283C # Hijack_PersonalityTableBuild2.s
+./makebl 02237902 023C83E4 | ./binpatch $patched_overlay12bin 42   # Hijack_BattleStart.s
+./makebl 02237A26 023C8404 | ./binpatch $patched_overlay12bin 166  # Hijack_BattleEnd.s
+./makebl 02246950 023C8424 | ./binpatch $patched_overlay12bin F090 # Hijack_BattleEndCaught.s
+./makebl 0223A0FC 023C8444 | ./binpatch $patched_overlay12bin 283C # Hijack_PersonalityTableBuild2.s
 
 # hijack stuff needed to get misc sprite loads working (HM use, introduction)
-echo B4 F3 10 F8 | ./binpatch $patched_arm9bin 14480 # Hijack_MiscSprite.s
+./makebl 02014480 023C84A4 | ./binpatch $patched_arm9bin 14480 # Hijack_MiscSprite.s
 
 # hijack stuff needed to hue shift walking/following Pokemon
-echo CD F1 F5 FF | ./binpatch $patched_overlay1bin 14BD6 # Hijack_WalkingPokemon.s
-echo E2 F1 3C F8 | ./binpatch $patched_overlay1bin BA8   # Hijack_WalkingPokemonDetect.s
+./makebl 021FA4D6 023C84C4 | ./binpatch $patched_overlay1bin 14BD6 # Hijack_WalkingPokemon.s
+./makebl 021E64A8 023C8524 | ./binpatch $patched_overlay1bin BA8   # Hijack_WalkingPokemonDetect.s
 
 # hijack stuff needed to get PC box sprites working
-echo D4 F1 3F FF | ./binpatch $patched_overlay14bin DDC2 # Hijack_BoxSprite1.s (on pc box pokemon palette load)
-echo C0 F3 65 FB | ./binpatch $patched_arm9bin      7E96 # Hijack_BoxSprite2.s (general palette upload)
+./makebl 021F36C2 023C8544 | ./binpatch $patched_overlay14bin DDC2 # Hijack_BoxSprite1.s (on pc box pokemon palette load)
+./makebl 02007E96 023C8564 | ./binpatch $patched_arm9bin      7E96 # Hijack_BoxSprite2.s (general palette upload)
 
 rm temp_bin
