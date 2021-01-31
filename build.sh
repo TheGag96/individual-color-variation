@@ -43,8 +43,9 @@ compile_asm Hijack_MiscSprite.s
 compile_asm Hijack_HallOfFame.s
 compile_asm Hijack_PaletteUpload.s
 
-# compile binary patch tool
+# compile binary patch tool and hijack branch maker tools
 dmd binpatch.d
+dmd makebl.d
 
 # prepare patched output .bin file
 cp $original_arm9bin      $patched_arm9bin
@@ -77,10 +78,8 @@ patch_code Hijack_MiscSprite              504E0
 patch_code Hijack_HallOfFame              50500
 patch_code Hijack_PaletteUpload           50520
 
-dmd tableprinter.d
-dmd makebl.d
-
 # geneate sin/cos table and patch to its location
+dmd tableprinter.d
 ./tableprinter | ./binpatch $patched_arm9bin 5003C
 
 # hijack palette load function to jump to Hijack_HueShift.s
