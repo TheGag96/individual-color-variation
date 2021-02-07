@@ -144,13 +144,14 @@ List of changed Pokémon (so far):
 
 1. Install [devkitARM](https://devkitpro.org/wiki/Getting_Started).
 2. Install a [D compiler](https://dlang.org/download.html).
-3. Use a program like Nitro Explorer 3 to extract `arm9.bin`, `overlay9-12.bin`, and `overlay9-16.bin` from your Platinum ROM.
-4. Place them in the root folder of this repo, and name them to `arm9_vanilla.bin`, `overlay12_vanilla.bin`, and `overlay16_vanilla.bin`, respectively.
+3. Use a program like Nitro Explorer 3 to extract `arm9.bin`, `overlay9-12.bin`, `overlay9-16.bin`, `overlay9-86.bin`, and `overlay9-87.bin` from your Platinum ROM.
+4. Place them in the root folder of this repo, and name them to `arm9_vanilla.bin`, `overlay12_vanilla.bin`, `overlay16_vanilla.bin`, `overlay86_vanilla.bin`, and `overlay87_vanilla.bin`, respectively.
 5. Run `./build.sh`.
-6. Inject `arm9_patched.bin`, `overlay12_patched.bin`, and `overlay16_patched.bin` back into `arm9.bin`, `overlay9-12.bin`, and `overlay9-16.bin`, respectively.
-7. Extract `pl_pokegra.narc`.
+6. Inject `arm9_patched.bin`, `overlay12_patched.bin`, `overlay86_patched.bin`, and `overlay87_patched.bin` back into `arm9.bin`, `overlay9-12.bin`, `overlay9-16.bin`, `overlay9-86.bin`, and `overlay9-87.bin`, respectively.
+7. Extract `poketool/pokegra/pl_pokegra.narc`.
 8. For each image in the `ShinyChanges` folder, insert that image to the proper place using "Pokemon Ds/Pic Platinum". (Note that some Pokémon might have changes to the base sprite.)
-9. If you want to be really thorough, extract `pokegra.narc` and replace each changed palette entry (only the palette ones, not the image ones!).
+9. Reinsert `pl_pokegra.narc`.
+10. If you want to be really thorough, extract `poketool/pokegra/pokegra.narc` and replace each changed palette entry (only the palette ones, not the image ones, unless necessary like Blissey!).
 
 
 ## How It Works
@@ -168,7 +169,7 @@ The added code used to make this work are inserted in `arm9.bin` at `0x5003C` th
 | `0x020501F0` | Saved-off variable battle data pointer                                                                                                                                                                         |
 | `0x020501F4` | Unused                                                                                                                                                                                                         |
 | `0x020501F8` | `0xBA771E` if currently in battle,  something else otherwise. Set by `Hijack_BattleStart`, `Hijack_BattleEnd`, `Hijack_BattleEndCaught`. Read by `Hijack_HueShift.s`                                          |
-| `0x020501FC` | Read in `Hijack_GbaPal.s` to determine if up the call chain, it was signalled that a Pokémon's battle sprite palette is being loaded. `0xBEEFXXXX` where `XXXX` is the index of the sprite being loaded (0-3). |
+| `0x020501FC` | Read in `Hijack_GbaPal.s` to determine if up the call chain, it was signalled that a Pokémon's battle sprite palette is being loaded. `0xBEEFXXXX` where `XXXX` is the index of the sprite being loaded (0-3). Also set to `0xFA3E` when loading a sprite for the Hall of Fame, to be read in `Hijack_PaletteUpload.s`. |
 | `0x02050200` | Contains the personality value of the Pokémon read by the last call to `GetPkmnData` or `GetBoxPkmnData`, read by `Hijack_HueShift.s` and `Hijack_MiscSprite.s`.                                             |
 
 A rundown of the code files involved:
@@ -200,6 +201,10 @@ A rundown of the code files involved:
 * `Hijack_GbaPal.s` - Reached from down the call chain (in `Function_2002fec`) after `Hijack_BattleSprite.s` or `Hijack_BattleSprite2.s`. Reads `0x020501FC`, looking for `0xBEEF` to determine whether this is a Pokémon's palette being loaded. If so, it uses the current battle sprite ID to index into the personality value table at `0x020501E0` and then use it to call the code in `hueshift.c`. `0x020501FC` is then set to `0` so to ensure that this code won't run again unless this is for a Pokémon sprite.
 
 * `Hijack_MiscSprite.s` - Hijacks inside a function used for loading the palette for Pokémon sprites in miscellaneous circumstances, like during the HM use animation and in the introduction when Professor Rowan sends out a Pokémon. Loads the personality value at `0x02050200` and calls the code at `hueshift.c`.
+
+* `Hijack_HallOfFame.s` - Hijacks functions in [overlay 86](https://github.com/KernelEquinox/PokePlatinum/blob/d4ceb51ccbd9dadd4578afac084d207b3a2a244a/Misc/086_HallOfFamePokemonEntry.c#L584) and [overlay 87](https://github.com/KernelEquinox/PokePlatinum/blob/d4ceb51ccbd9dadd4578afac084d207b3a2a244a/Misc/087_HallOfFamePC.c#L825) that are about to call `Call_LoadFromNARC_RLCN` to load Pokémon palettes during viewing the Hall of Fame (actual location and in the PC, respectively). Sets `0x020501FC` to `0xFA3E` so it can be read down the call chain by `Hijack_PaletteUpload.s`.
+
+* `Hijack_PaletteUpload.s` - Hijacks in a common function that uploads palettes to the palette RAM. Checks if `0x020501FC` was set to `0xFA3E` earlier in the call chain - if so, loads the personality value at `0x02050200`, calls the code at `hueshift.c`, then resets `0x020501FC` to `0`.
 
 
 ## Credits
