@@ -17,6 +17,9 @@ patched_overlay86bin=overlay86_patched.bin
 original_overlay87bin=overlay87_vanilla.bin
 patched_overlay87bin=overlay87_patched.bin
 
+original_overlay119bin=overlay119_vanilla.bin
+patched_overlay119bin=overlay119_patched.bin
+
 # compile asm and C files
 function compile_c {
   eval $DEVKITARM/bin/arm-none-eabi-gcc -Wall -Os -march=armv5te -mtune=arm946e-s -fomit-frame-pointer -ffast-math -mthumb -mthumb-interwork -I/opt/devkitpro/libnds/include -DARM9 -c $1 -o $(basename $1 .c).o
@@ -42,17 +45,20 @@ compile_asm Hijack_BattleEndCaught.s
 compile_asm Hijack_MiscSprite.s
 compile_asm Hijack_HallOfFame.s
 compile_asm Hijack_PaletteUpload.s
+compile_asm Hijack_EggHatching.s
+compile_asm Hijack_AnimPal.s
 
 # compile binary patch tool and hijack branch maker tools
 dmd binpatch.d
 dmd makebl.d
 
 # prepare patched output .bin file
-cp $original_arm9bin      $patched_arm9bin
-cp $original_overlay12bin $patched_overlay12bin
-cp $original_overlay16bin $patched_overlay16bin
-cp $original_overlay86bin $patched_overlay86bin
-cp $original_overlay87bin $patched_overlay87bin
+cp $original_arm9bin       $patched_arm9bin
+cp $original_overlay12bin  $patched_overlay12bin
+cp $original_overlay16bin  $patched_overlay16bin
+cp $original_overlay86bin  $patched_overlay86bin
+cp $original_overlay87bin  $patched_overlay87bin
+cp $original_overlay119bin $patched_overlay119bin
 
 # extract compiled machine code and patch them to specific locations
 
@@ -77,6 +83,8 @@ patch_code Hijack_PersonalityTableBuild2  50480
 patch_code Hijack_MiscSprite              504E0
 patch_code Hijack_HallOfFame              50500
 patch_code Hijack_PaletteUpload           50520
+patch_code Hijack_EggHatching             50550
+patch_code Hijack_AnimPal                 50570
 
 # geneate sin/cos table and patch to its location
 dmd tableprinter.d
@@ -112,5 +120,8 @@ dmd tableprinter.d
 ./makebl 0223BC58 02050500 | ./binpatch $patched_overlay86bin B18  # Hijack_HallOfFame.s (viewing in actual HoF)
 ./makebl 021D1A22 02050500 | ./binpatch $patched_overlay87bin CA2  # Hijack_HallOfFame.s (viewing in PC)
 ./makebl 020073DA 02050520 | ./binpatch $patched_arm9bin      73DA # Hijack_PaletteUpload.s
+
+./makebl 021D1564 02050550 | ./binpatch $patched_overlay119bin 7E4  # Hijack_HallOfFame.s (viewing in actual HoF)
+./makebl 0200CCD8 02050570 | ./binpatch $patched_arm9bin       CCD8 # Hijack_HallOfFame.s (viewing in actual HoF)
 
 rm temp_bin

@@ -169,7 +169,7 @@ The added code used to make this work are inserted in `arm9.bin` at `0x5003C` th
 | `0x020501F0` | Saved-off variable battle data pointer                                                                                                                                                                         |
 | `0x020501F4` | Unused                                                                                                                                                                                                         |
 | `0x020501F8` | `0xBA771E` if currently in battle,  something else otherwise. Set by `Hijack_BattleStart`, `Hijack_BattleEnd`, `Hijack_BattleEndCaught`. Read by `Hijack_HueShift.s`                                          |
-| `0x020501FC` | Read in `Hijack_GbaPal.s` to determine if up the call chain, it was signalled that a Pokémon's battle sprite palette is being loaded. `0xBEEFXXXX` where `XXXX` is the index of the sprite being loaded (0-3). Also set to `0xFA3E` when loading a sprite for the Hall of Fame, to be read in `Hijack_PaletteUpload.s`. |
+| `0x020501FC` | Read in `Hijack_GbaPal.s` to determine if up the call chain, it was signalled that a Pokémon's battle sprite palette is being loaded. `0xBEEFXXXX` where `XXXX` is the index of the sprite being loaded (0-3). Also set to `0xFA3E` when loading a sprite for the Hall of Fame, to be read in `Hijack_PaletteUpload.s`; `0x0E66` when loading the egg hatching animation graphics, to be read by `Hijack_AnimPal.s`. |
 | `0x02050200` | Contains the personality value of the Pokémon read by the last call to `GetPkmnData` or `GetBoxPkmnData`, read by `Hijack_HueShift.s` and `Hijack_MiscSprite.s`.                                             |
 
 A rundown of the code files involved:
@@ -205,6 +205,10 @@ A rundown of the code files involved:
 * `Hijack_HallOfFame.s` - Hijacks functions in [overlay 86](https://github.com/KernelEquinox/PokePlatinum/blob/d4ceb51ccbd9dadd4578afac084d207b3a2a244a/Misc/086_HallOfFamePokemonEntry.c#L584) and [overlay 87](https://github.com/KernelEquinox/PokePlatinum/blob/d4ceb51ccbd9dadd4578afac084d207b3a2a244a/Misc/087_HallOfFamePC.c#L825) that are about to call `Call_LoadFromNARC_RLCN` to load Pokémon palettes during viewing the Hall of Fame (actual location and in the PC, respectively). Sets `0x020501FC` to `0xFA3E` so it can be read down the call chain by `Hijack_PaletteUpload.s`.
 
 * `Hijack_PaletteUpload.s` - Hijacks in a common function that uploads palettes to the palette RAM. Checks if `0x020501FC` was set to `0xFA3E` earlier in the call chain - if so, loads the personality value at `0x02050200`, calls the code at `hueshift.c`, then resets `0x020501FC` to `0`.
+
+* `Hijack_EggHatching.s` - Hijacks in overlay 119, right before a [function call](https://github.com/KernelEquinox/PokePlatinum/blob/d4ceb51ccbd9dadd4578afac084d207b3a2a244a/Misc/119_EggHatch.c#L505) to load the palette for the egg hatching animation. Sets `0x020501FC` to `0x0E66` to be read further down the call chain by `Hijack_AnimPal.s`.
+
+* `Hijack_AnimPal.s` - Hijacks a common function related to loading palettes (unsure of its exact purpose), just before uploading to palette RAM occurs. Checks if `0x020501FC` was set to `0x0E66` earlier in the call chain - if so, loads the personality value at `0x02050200`, calls the code at `hueshift.c`, then resets `0x020501FC` to `0`.
 
 
 ## Credits
