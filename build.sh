@@ -121,7 +121,8 @@ dmd tableprinter.d
 ./makebl 021D1A22 02050500 | ./binpatch $patched_overlay87bin CA2  # Hijack_HallOfFame.s (viewing in PC)
 ./makebl 020073DA 02050520 | ./binpatch $patched_arm9bin      73DA # Hijack_PaletteUpload.s
 
-./makebl 021D1564 02050550 | ./binpatch $patched_overlay119bin 7E4  # Hijack_HallOfFame.s (viewing in actual HoF)
-./makebl 0200CCD8 02050570 | ./binpatch $patched_arm9bin       CCD8 # Hijack_HallOfFame.s (viewing in actual HoF)
+# hijack stuff needed to get the egg hatching animation working
+./makebl 021D1564 02050550 | ./binpatch $patched_overlay119bin 7E4  # Hijack_EggHatching.s 
+./makebl 0200CCD8 02050570 | ./binpatch $patched_arm9bin       CCD8 # Hijack_AnimPal.s
 
 rm temp_bin
