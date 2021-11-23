@@ -144,14 +144,20 @@ List of changed Pokémon (so far):
 
 1. Install [devkitARM](https://devkitpro.org/wiki/Getting_Started).
 2. Install a [D compiler](https://dlang.org/download.html).
-3. Use a program like Nitro Explorer 3 to extract `arm9.bin`, `overlay9-12.bin`, `overlay9-16.bin`, `overlay9-86.bin`, and `overlay9-87.bin` from your Platinum ROM.
-4. Place them in the root folder of this repo, and name them to `arm9_vanilla.bin`, `overlay12_vanilla.bin`, `overlay16_vanilla.bin`, `overlay86_vanilla.bin`, and `overlay87_vanilla.bin`, respectively.
-5. Run `./build.sh`.
-6. Inject `arm9_patched.bin`, `overlay12_patched.bin`, `overlay86_patched.bin`, and `overlay87_patched.bin` back into `arm9.bin`, `overlay9-12.bin`, `overlay9-16.bin`, `overlay9-86.bin`, and `overlay9-87.bin`, respectively.
-7. Extract `poketool/pokegra/pl_pokegra.narc`.
-8. For each image in the `ShinyChanges` folder, insert that image to the proper place using "Pokemon Ds/Pic Platinum". (Note that some Pokémon might have changes to the base sprite.)
-9. Reinsert `pl_pokegra.narc`.
-10. If you want to be really thorough, extract `poketool/pokegra/pokegra.narc` and replace each changed palette entry (only the palette ones, not the image ones, unless necessary like Blissey!).
+3. Download [PokEditor v1](https://github.com/turtleisaac/PokEditor/releases), extract it into the root folder of this repo, and rename folder that got extracted to `PokEditor`.
+4. Use a program like Nitro Explorer 3 to extract `arm9.bin`, `overlay9-5.bin`, `overlay9-12.bin`, `overlay9-16.bin`, `overlay9-86.bin`, and `overlay9-87.bin`, and `data/weather_sys.narc` from your Platinum ROM.
+5. Place them in the root folder of this repo, and name them to `arm9_vanilla.bin`, `overlay5_vanilla.bin`, `overlay12_vanilla.bin`, `overlay16_vanilla.bin`, `overlay86_vanilla.bin`, `overlay87_vanilla.bin`, and `weather_sys.narc`, respectively.
+6. Use Tinke or PokEditor v2 (not v1) to extract file 65 from `weather_sys.narc` as `weather_sys_065_vanilla.bin`.
+7. Run `./build.sh`.
+8. Overwrite file 65 from `weather_sys.narc` with `weather_sys_065_patched.bin`.
+9. Inject `arm9_patched.bin`, `overlay5_patched.bin` `overlay12_patched.bin`, `overlay86_patched.bin`, `overlay87_patched.bin`, and `weather_sys.narc` back into `arm9.bin`, `overlay9-5.bin`, `overlay9-12.bin`, `overlay9-16.bin`, `overlay9-86.bin`, `overlay9-87.bin`, and `data/weather_sys.narc`, respectively.
+10. Extract `poketool/pokegra/pl_pokegra.narc`.
+11. For each image in the `ShinyChanges` folder, insert that image to the proper place using "Pokemon Ds/Pic Platinum". (Note that some Pokémon might have changes to the base sprite.)
+12. Reinsert `pl_pokegra.narc`.
+13. If you want to be really thorough, extract `poketool/pokegra/pokegra.narc` and replace each changed palette entry (only the palette ones, not the image ones, unless necessary like Blissey!).
+14. Extract `data/mmodel/mmodel.narc` as `ow_sprites.narc`.
+15. Run `./pack_follow_pal.sh`.
+16. Insert the resulting `ow_sprites_patched.narc` to `data/mmodel/mmodel.narc`.
 
 
 ## How It Works
@@ -162,13 +168,13 @@ The added code used to make this work are inserted in `arm9.bin` at `0x5003C` th
 
 | Address      | Description                                                                                                                                                                                                    |
 |--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `0x020501E0` | Personality value of player Pokémon 1                                                                                                                                                                          |
+| `0x020501E0` | Personality value of player Pokémon 1 (and the OW following Pokémon)                                                                                                                                         |
 | `0x020501E4` | Personality value of enemy Pokémon 1                                                                                                                                                                           |
 | `0x020501E8` | Personality value of player/partner Pokémon 2                                                                                                                                                                  |
 | `0x020501EC` | Personality value of enemy Pokémon 2                                                                                                                                                                           |
 | `0x020501F0` | Saved-off variable battle data pointer                                                                                                                                                                         |
 | `0x020501F4` | Unused                                                                                                                                                                                                         |
-| `0x020501F8` | `0xBA771E` if currently in battle,  something else otherwise. Set by `Hijack_BattleStart`, `Hijack_BattleEnd`, `Hijack_BattleEndCaught`. Read by `Hijack_HueShift.s`                                          |
+| `0x020501F8` | `0xBA771E` if currently in battle, something else otherwise. Set by `Hijack_BattleStart`, `Hijack_BattleEnd`, `Hijack_BattleEndCaught`. Read by `Hijack_HueShift.s`; `0xF0110` if a OW following sprite is going to be loaded. Set by `Hijack_WalkingPokemonDetect2.s`, read by `Hijack_WalkingPokemon.s`.                                          |
 | `0x020501FC` | Read in `Hijack_GbaPal.s` to determine if up the call chain, it was signalled that a Pokémon's battle sprite palette is being loaded. `0xBEEFXXXX` where `XXXX` is the index of the sprite being loaded (0-3). Also set to `0xFA3E` when loading a sprite for the Hall of Fame, to be read in `Hijack_PaletteUpload.s`; `0x0E66` when loading the egg hatching animation graphics, to be read by `Hijack_AnimPal.s`. |
 | `0x02050200` | Contains the personality value of the Pokémon read by the last call to `GetPkmnData` or `GetBoxPkmnData`, read by `Hijack_HueShift.s` and `Hijack_MiscSprite.s`.                                             |
 
@@ -210,6 +216,11 @@ A rundown of the code files involved:
 
 * `Hijack_AnimPal.s` - Hijacks a common function related to loading palettes (unsure of its exact purpose), just before uploading to palette RAM occurs. Checks if `0x020501FC` was set to `0x0E66` earlier in the call chain - if so, loads the personality value at `0x02050200`, calls the code at `hueshift.c`, then resets `0x020501FC` to `0`.
 
+* `Hijack_WalkingPokemonDetect.s` - Hijacks a function in overlay 5 called when the overworld sprites are about to load during an OW load (e.g. entering/exiting a door, closing a fullscreen menu). `0x000F0110` is set to `0x020501F8` to be used by `Hijack_WalkingPokemon.s` later.
+
+* `Hijack_WalkingPokemonDetect2.s` - Hijacks three places in Following Platinum's synthetic overlay (`data/weather_sys.narc`, file 65) where a Pokémon's species is about to be determined for loading its proper sprite. The personality value of the Pokémon being considered is saved to `0x020501E0` to be used by `Hijack_WalkingPokemon.s` later. (Unfortunately, by the time `Hijack_WalkingPokemon.s` is hit, the last-read Pokémon's personality value can't be used because of some other code that gets called between `Hijack_WalkingPokemonDetect.s` and it.)
+
+* `Hijack_WalkingPokemon.s` - Hijacks two places in overlay 5, right at the point the BTX file for an overworld sprite gets loaded from `data/mmodel/mmodel.narc`. The overwritten call to load the BTX is ran. Then, if the file ID being read from the narc is one of the following Pokémon sprites (471-1324), and `0x020501F8` was set to `0x000F0110` earlier, we call the code at `hueshift.c` using the personality value in `0x020501E0` on both the normal and shiny palettes in the BTX file. `0x020501F8` is set to `0`.
 
 ## Credits
 

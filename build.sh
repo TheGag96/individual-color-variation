@@ -5,6 +5,9 @@ set -e
 original_arm9bin=arm9_vanilla.bin
 patched_arm9bin=arm9_patched.bin
 
+original_overlay5bin=overlay5_vanilla.bin
+patched_overlay5bin=overlay5_patched.bin
+
 original_overlay12bin=overlay12_vanilla.bin
 patched_overlay12bin=overlay12_patched.bin
 
@@ -19,6 +22,9 @@ patched_overlay87bin=overlay87_patched.bin
 
 original_overlay119bin=overlay119_vanilla.bin
 patched_overlay119bin=overlay119_patched.bin
+
+original_weathersys065bin=weather_sys_065_vanilla.bin
+patched_weathersys065bin=weather_sys_065_patched.bin
 
 # compile asm and C files
 function compile_c {
@@ -47,44 +53,52 @@ compile_asm Hijack_HallOfFame.s
 compile_asm Hijack_PaletteUpload.s
 compile_asm Hijack_EggHatching.s
 compile_asm Hijack_AnimPal.s
+compile_asm Hijack_WalkingPokemon.s
+compile_asm Hijack_WalkingPokemonDetect.s
+compile_asm Hijack_WalkingPokemonDetect2.s
 
 # compile binary patch tool and hijack branch maker tools
 dmd binpatch.d
 dmd makebl.d
 
 # prepare patched output .bin file
-cp $original_arm9bin       $patched_arm9bin
-cp $original_overlay12bin  $patched_overlay12bin
-cp $original_overlay16bin  $patched_overlay16bin
-cp $original_overlay86bin  $patched_overlay86bin
-cp $original_overlay87bin  $patched_overlay87bin
-cp $original_overlay119bin $patched_overlay119bin
+cp $original_arm9bin           $patched_arm9bin
+cp $original_overlay5bin       $patched_overlay5bin
+cp $original_overlay12bin      $patched_overlay12bin
+cp $original_overlay16bin      $patched_overlay16bin
+cp $original_overlay86bin      $patched_overlay86bin
+cp $original_overlay87bin      $patched_overlay87bin
+cp $original_overlay119bin     $patched_overlay119bin
+cp $original_weathersys065bin  $patched_weathersys065bin
 
 # extract compiled machine code and patch them to specific locations
 
 function patch_code {
   eval $DEVKITARM/bin/arm-none-eabi-objcopy -O binary -j .text $1.o temp_bin
-  od -An -t x1 temp_bin | ./binpatch $patched_arm9bin $2
+  od -An -t x1 temp_bin | ./binpatch $2 $3
 }
 
-patch_code Hijack_HueShift                5023C
-patch_code hueshift                       500BC
-patch_code Hijack_PersonalitySave         50204
-patch_code Hijack_PersonalityClearPokedex 50280
-patch_code Hijack_BattleSprite            502A0
-patch_code Hijack_GbaPal                  502E0
-patch_code Hijack_BattleSprite2           50320
-patch_code Hijack_PersonalityTableBuild   50380
-patch_code Hijack_BattleDataPtrSave       50400
-patch_code Hijack_BattleStart             50420
-patch_code Hijack_BattleEnd               50440
-patch_code Hijack_BattleEndCaught         50460
-patch_code Hijack_PersonalityTableBuild2  50480
-patch_code Hijack_MiscSprite              504E0
-patch_code Hijack_HallOfFame              50500
-patch_code Hijack_PaletteUpload           50520
-patch_code Hijack_EggHatching             50550
-patch_code Hijack_AnimPal                 50570
+patch_code Hijack_HueShift                $patched_arm9bin          5023C
+patch_code hueshift                       $patched_arm9bin          500BC
+patch_code Hijack_PersonalitySave         $patched_arm9bin          50204
+patch_code Hijack_PersonalityClearPokedex $patched_arm9bin          50280
+patch_code Hijack_BattleSprite            $patched_arm9bin          502A0
+patch_code Hijack_GbaPal                  $patched_arm9bin          502E0
+patch_code Hijack_BattleSprite2           $patched_arm9bin          50320
+patch_code Hijack_PersonalityTableBuild   $patched_arm9bin          50380
+patch_code Hijack_BattleDataPtrSave       $patched_arm9bin          50400
+patch_code Hijack_BattleStart             $patched_arm9bin          50420
+patch_code Hijack_BattleEnd               $patched_arm9bin          50440
+patch_code Hijack_BattleEndCaught         $patched_arm9bin          50460
+patch_code Hijack_PersonalityTableBuild2  $patched_arm9bin          50480
+patch_code Hijack_MiscSprite              $patched_arm9bin          504E0
+patch_code Hijack_HallOfFame              $patched_arm9bin          50500
+patch_code Hijack_PaletteUpload           $patched_arm9bin          50520
+patch_code Hijack_EggHatching             $patched_arm9bin          50550
+patch_code Hijack_AnimPal                 $patched_arm9bin          50570
+patch_code Hijack_WalkingPokemon          $patched_weathersys065bin 13000
+patch_code Hijack_WalkingPokemonDetect    $patched_weathersys065bin 13060
+patch_code Hijack_WalkingPokemonDetect2   $patched_weathersys065bin 13080
 
 # geneate sin/cos table and patch to its location
 dmd tableprinter.d
@@ -124,5 +138,13 @@ dmd tableprinter.d
 # hijack stuff needed to get the egg hatching animation working
 ./makebl 021D1564 02050550 | ./binpatch $patched_overlay119bin 7E4  # Hijack_EggHatching.s 
 ./makebl 0200CCD8 02050570 | ./binpatch $patched_arm9bin       CCD8 # Hijack_AnimPal.s
+
+# hijack stuff needed to hue shift walking/following Pokemon
+./makebl 021EDF9E 023DB000 | ./binpatch $patched_overlay5bin      1D21E # Hijack_WalkingPokmemon.s
+./makebl 021EE05C 023DB000 | ./binpatch $patched_overlay5bin      1D2DC # Hijack_WalkingPokmemon.s
+./makebl 021D187E 023DB060 | ./binpatch $patched_overlay5bin      AFE   # Hijack_WalkingPokmemonDetect.s
+./makebl 023C8050 023DB080 | ./binpatch $patched_weathersys065bin 50    # Hijack_WalkingPokmemonDetect2.s
+./makebl 023C9050 023DB080 | ./binpatch $patched_weathersys065bin 1050  # Hijack_WalkingPokmemonDetect2.s
+./makebl 023CA3A6 023DB080 | ./binpatch $patched_weathersys065bin 23A6  # Hijack_WalkingPokmemonDetect2.s
 
 rm temp_bin
