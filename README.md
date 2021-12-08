@@ -149,7 +149,7 @@ List of changed Pokémon (so far):
 5. Place them in the root folder of this repo, and name them to `arm9_vanilla.bin`, `overlay5_vanilla.bin`, `overlay12_vanilla.bin`, `overlay16_vanilla.bin`, `overlay86_vanilla.bin`, `overlay87_vanilla.bin`, and `weather_sys.narc`, respectively.
 6. Use Tinke or PokEditor v2 (not v1) to extract file 65 from `weather_sys.narc` as `weather_sys_065_vanilla.bin`.
 7. Run `./build.sh`.
-8. Overwrite file 65 from `weather_sys.narc` with `weather_sys_065_patched.bin`.
+8. Overwrite file 65 from `weather_sys.narc` with `weather_sys_065_patched.bin` (in Tinke, don't forget to select the narc filename and hit "Pack").
 9. Inject `arm9_patched.bin`, `overlay5_patched.bin` `overlay12_patched.bin`, `overlay86_patched.bin`, `overlay87_patched.bin`, and `weather_sys.narc` back into `arm9.bin`, `overlay9-5.bin`, `overlay9-12.bin`, `overlay9-16.bin`, `overlay9-86.bin`, `overlay9-87.bin`, and `data/weather_sys.narc`, respectively.
 10. Extract `poketool/pokegra/pl_pokegra.narc`.
 11. For each image in the `ShinyChanges` folder, insert that image to the proper place using "Pokemon Ds/Pic Platinum". (Note that some Pokémon might have changes to the base sprite.)
