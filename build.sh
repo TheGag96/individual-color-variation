@@ -96,9 +96,9 @@ patch_code Hijack_HallOfFame              $patched_arm9bin          50500
 patch_code Hijack_PaletteUpload           $patched_arm9bin          50520
 patch_code Hijack_EggHatching             $patched_arm9bin          50550
 patch_code Hijack_AnimPal                 $patched_arm9bin          50570
-patch_code Hijack_WalkingPokemon          $patched_weathersys065bin 13000
-patch_code Hijack_WalkingPokemonDetect    $patched_weathersys065bin 13060
-patch_code Hijack_WalkingPokemonDetect2   $patched_weathersys065bin 13080
+patch_code Hijack_WalkingPokemon          $patched_weathersys065bin 14200
+patch_code Hijack_WalkingPokemonDetect    $patched_weathersys065bin 14260
+patch_code Hijack_WalkingPokemonDetect2   $patched_weathersys065bin 14280
 
 # geneate sin/cos table and patch to its location
 dmd tableprinter.d
@@ -140,11 +140,11 @@ dmd tableprinter.d
 ./makebl 0200CCD8 02050570 | ./binpatch $patched_arm9bin       CCD8 # Hijack_AnimPal.s
 
 # hijack stuff needed to hue shift walking/following Pokemon
-./makebl 021EDF9E 023DB000 | ./binpatch $patched_overlay5bin      1D21E # Hijack_WalkingPokmemon.s
-./makebl 021EE05C 023DB000 | ./binpatch $patched_overlay5bin      1D2DC # Hijack_WalkingPokmemon.s
-./makebl 021D187E 023DB060 | ./binpatch $patched_overlay5bin      AFE   # Hijack_WalkingPokmemonDetect.s
-./makebl 023C8050 023DB080 | ./binpatch $patched_weathersys065bin 50    # Hijack_WalkingPokmemonDetect2.s
-./makebl 023C9050 023DB080 | ./binpatch $patched_weathersys065bin 1050  # Hijack_WalkingPokmemonDetect2.s
-./makebl 023CA3A6 023DB080 | ./binpatch $patched_weathersys065bin 23A6  # Hijack_WalkingPokmemonDetect2.s
+./makebl 021EDF9E 023DC200 | ./binpatch $patched_overlay5bin      1D21E # Hijack_WalkingPokmemon.s
+./makebl 021EE05C 023DC200 | ./binpatch $patched_overlay5bin      1D2DC # Hijack_WalkingPokmemon.s
+./makebl 021D187E 023DC260 | ./binpatch $patched_overlay5bin      AFE   # Hijack_WalkingPokmemonDetect.s
+./makebl 023C8050 023DC280 | ./binpatch $patched_weathersys065bin 50    # Hijack_WalkingPokmemonDetect2.s
+./makebl 023C9050 023DC280 | ./binpatch $patched_weathersys065bin 1050  # Hijack_WalkingPokmemonDetect2.s
+./makebl 023CA3A6 023DC280 | ./binpatch $patched_weathersys065bin 23A6  # Hijack_WalkingPokmemonDetect2.s
 
 rm temp_bin
