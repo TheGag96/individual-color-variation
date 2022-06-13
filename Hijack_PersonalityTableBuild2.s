@@ -27,6 +27,10 @@ Hijack_PersonalityTableBuild2: @ hook at overlay 16, 0x26E8 (0x0223D828)
   @ get pokemon-in-party index from active party member table
   ldrb r2, [r6, r5]
 
+  @ skip if invalid/blank ID
+  cmp r2, #6
+  beq .loop_check
+
   @ load loop variable as party index
   @ note about the party index:
   @ 0 and 2 are either the player or partner pokemon, and 1 and 3 are enemy trainer(s).
@@ -45,6 +49,8 @@ Hijack_PersonalityTableBuild2: @ hook at overlay 16, 0x26E8 (0x0223D828)
   ldr r0, [r0]
   lsl r1, r5, #2
   str r0, [r3, r1]
+
+  .loop_check:
 
   add r5, r5, #1
   cmp r5, #4

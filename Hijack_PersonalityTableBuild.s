@@ -23,6 +23,11 @@ Hijack_PersonalityTableBuild: @ hook at overlay 12, 0x39F4 (0x02223614)
   @ get pokemon-in-party index from active party member table
   ldrb r2, [r1, r4]
 
+  @ skip if invalid/blank ID
+  @ may not need this? not sure, but copying this from Hijack_PersonalityTableBuild2 just in case
+  cmp r2, #6
+  beq .end
+
   @ load loop variable as party index
   @ note about the party index:
   @ 0 and 2 are either the player or partner pokemon, and 1 and 3 are enemy trainer(s).
