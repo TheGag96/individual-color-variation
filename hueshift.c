@@ -30,15 +30,23 @@ __attribute__((always_inline)) static inline s32 roundClampShift(fixed v) {
 }
 
 /***
- * Performs a hue shift on the colors in a given palette. Index must be from 0 to 63.
+ * Performs a hue shift on the colors in a given palette.
+ * Can pass in either a Pokemon's personality value or an index into the hue shift table (isIndex).
+ * Index must be from 0 to 63.
  * Values 0-31 shift right, while values 32-63 shift left (but 32 is treated as 0, 33 as 1, etc.).
  ***/
-void shiftPalette(u16* colors, u32 personality) {
-  //Use third personality byte to determine color;
-  u32 index = personality >> 16;
+void shiftPalette(u16* colors, u32 personalityOrIndex, u32 isIndex) {
+  //Use third personality byte to determine color.
+  u32 index;
 
-  //Limit the index to valid bounds
-  index = index & (64-1);
+  if (isIndex) {
+    index = personalityOrIndex;
+  }
+  else {
+    index = personalityOrIndex >> 16;
+    //Limit the index to valid bounds
+    index = index & (64-1);
+  }
 
   u16* cosTable = (u16*)COS_LOC;
   u16* sinTable = (u16*)SIN_LOC;

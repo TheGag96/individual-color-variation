@@ -19,9 +19,10 @@ Hijack_BoxSprite2: @ hook at 0x7E96
   str r3, [r1, #0x1C]
 
   ldr r1, [r1, #0x20] @ contains personality value of last read pkmn data
+  mov r2, #0          @ r1 contians the whole personality value, not just a hue shift table index.
 
-  ldr r2, =0x023C8081 @ location of code from hueshift.c
-  blx r2
+  ldr r3, =0x023C8081 @ location of code from hueshift.c
+  blx r3
 
   .end:
 

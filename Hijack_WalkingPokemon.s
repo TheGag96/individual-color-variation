@@ -32,15 +32,16 @@ Hijack_WalkingPokemon: @ hook at overlay 1, 0x14BD6 (0x021FA4D6)
   add r0, r0, r2
 
   ldr r1, [r3, #0x20] @ contains personality value of last read pkmn data
+  mov r2, #0          @ r1 contians the whole personality value, not just a hue shift table index.
 
-  ldr r2, =0x023C8081 @ location of code from hueshift.c
+  ldr r3, =0x023C8081 @ location of code from hueshift.c
 
   push {r0, r1, r2, r3}
-  blx r2
+  blx r3
   pop {r0, r1, r2, r3}
 
   add r0, r0, #0x20  @ run code on shiny palette also since Pokemon may be shiny
-  blx r2
+  blx r3
 
   .end:
 

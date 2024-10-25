@@ -20,6 +20,9 @@ Hijack_GbaPal: @ hook at 0x31E4
 
   @ call hue shifting code (from hueshift.c)
   push {r2, r3}
+
+  mov r2, #0  @ r1 contians the whole personality value, not just a hue shift table index.
+
   ldr r3, =0x023C8081
   blx r3
   pop {r2, r3}

@@ -23,6 +23,8 @@ Hijack: @ hook at 0x999C
 
   .shift:
 
+  mov r2, #0  @ r1 contians the whole personality value, not just a hue shift table index.
+
   ldr r3, =0x023C8081 @ location of code from hueshift.c
   blx r3
 
