@@ -200,7 +200,7 @@ cd ../
 # unknown hijacks?
 ./makebl 02235BC0 023C8614 | ./binpatch $patched_overlay74bin  EB60  # Hijack_Ov74Setup.s
 ./makebl 0221E88A 023C8634 | ./binpatch $patched_overlay98bin  2CA   # Hijack_Ov98Setup.s
-./makebl 021F0CF2 023C8654 | ./binpatch $patched_overlay112bin B3F2  # Hijack_Ov112.s
+./makebl 021F0CF2 023C8654 | ./binpatch $patched_overlay112bin B3F2  # Hijack_Ov112.s (Pokewalker)
 ./makebl 0221FC42 023C8654 | ./binpatch $patched_overlay97bin  1682  # Hijack_Ov112.s
 
 rm temp_bin
