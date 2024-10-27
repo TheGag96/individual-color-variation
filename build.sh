@@ -184,7 +184,7 @@ cd ../
 
 # hijack stuff needed to get PC box sprites working
 ./makebl 021F36C2 023C8544 | ./binpatch $patched_overlay14bin DDC2 # Hijack_BoxSprite1.s (on pc box pokemon palette load)
-./makebl 02007E96 023C8564 | ./binpatch $patched_arm9bin      7E96 # Hijack_BoxSprite2.s (general palette upload)
+./makebl 02007E00 023C8564 | ./binpatch $patched_arm9bin      7E00 # Hijack_BoxSprite2.s (general palette upload)
 
 # hijack stuff needed to get Hall of Fame registration working
 ./makebl 020701F8 023C8674 | ./binpatch $patched_arm9bin      701F8 # Hijack_PersonalityStore.s (on determining pokemon sprite and palette)

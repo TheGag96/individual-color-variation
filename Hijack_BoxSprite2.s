@@ -1,6 +1,6 @@
 .thumb
 
-Hijack_BoxSprite2: @ hook at 0x7E96
+Hijack_BoxSprite2: @ hook at 0x7E00
   push {lr}
 
   ldr r0, [r0, #0x0C] @ pointer to palette
@@ -28,6 +28,6 @@ Hijack_BoxSprite2: @ hook at 0x7E96
 
   @ restore old code (proper value already in r0)
   pop {r0, r1, r2, r3}
-  ldr r3, [r3, r4]
+  mov r1, r5
 
   pop {pc}
