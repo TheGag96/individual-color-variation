@@ -77,6 +77,7 @@ compile_asm Hijack_Ov112.s
 compile_asm Hijack_PersonalityStore.s
 compile_asm Hijack_HofRegisterOw.s
 compile_asm Hijack_HofViewOw.s
+compile_asm Hijack_PokewalkerStatus.s
 
 # compile binary patch and hijack branch maker tools
 dmd binpatch.d
@@ -138,6 +139,7 @@ patch_code Hijack_Ov112                   654
 patch_code Hijack_PersonalityStore        674
 patch_code Hijack_HofRegisterOw           684
 patch_code Hijack_HofViewOw               6A4
+patch_code Hijack_PokewalkerStatus        6C4
 
 # geneate sin/cos table and patch to its location
 dmd tableprinter.d
@@ -197,10 +199,13 @@ cd ../
 ./makebl 021E6902 023C85F4 | ./binpatch $patched_overlay64bin 1002 # Hijack_HofViewSetup.s (on HoF pokemon palette load)
 ./makebl 021E6E04 023C86A4 | ./binpatch $patched_overlay64bin 1504 # Hijack_HofViewOw.s (on HoF view pokemon OW sprite palette load)
 
+# Pokewalker
+./makebl 021F0CF2 023C8654 | ./binpatch $patched_overlay112bin B3F2  # Hijack_Ov112.s (Choosing Pokemon for Pokewalker stroll)
+./makebl 021E92DE 023C86C4 | ./binpatch $patched_overlay112bin 39DE  # Hijack_PokewalkerStatus.s (Showing Pokewalker stroll status)
+
 # unknown hijacks?
 ./makebl 02235BC0 023C8614 | ./binpatch $patched_overlay74bin  EB60  # Hijack_Ov74Setup.s
 ./makebl 0221E88A 023C8634 | ./binpatch $patched_overlay98bin  2CA   # Hijack_Ov98Setup.s
-./makebl 021F0CF2 023C8654 | ./binpatch $patched_overlay112bin B3F2  # Hijack_Ov112.s (Pokewalker)
 ./makebl 0221FC42 023C8654 | ./binpatch $patched_overlay97bin  1682  # Hijack_Ov112.s
 
 rm temp_bin
