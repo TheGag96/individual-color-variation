@@ -101,6 +101,7 @@ patch_code Hijack_AnimPal                 $patched_arm9bin          50570
 patch_code Hijack_WalkingPokemon          $patched_weathersys065bin 14200
 patch_code Hijack_WalkingPokemonDetect    $patched_weathersys065bin 14260
 patch_code Hijack_WalkingPokemonDetect2   $patched_weathersys065bin 14280
+patch_code Hijack_PersonalityStore        $patched_weathersys065bin 142A0
 
 # geneate sin/cos table and patch to its location
 dmd tableprinter.d
@@ -115,6 +116,10 @@ dmd tableprinter.d
 
 # hijack some pokedex routine to jump to Hijack_PersonalityClearPokedex.s
 ./makebl 2756E 50280 | ./binpatch $patched_arm9bin 2756E
+
+# hijack some stuff to always put the personality value in the pokepic struct, not just for spinda
+./makebl 02075FC8 23DC2A0 | ./binpatch $patched_arm9bin      75FC8 # Hijack_PersonalityStore.s (on determining pokemon sprite and palette)
+./makebl 02076314 23DC2A0 | ./binpatch $patched_arm9bin      76314 # Hijack_PersonalityStore.s (on determining pokemon sprite and palette)
 
 # hijack stuff related to in-battle GBA-styled sprites
 ./makebl 0222372E 020502A0 | ./binpatch $patched_overlay12bin 3B0E # Hijack_BattleSprite.s (on change sprite during switchout)
