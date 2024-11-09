@@ -28,7 +28,11 @@ Hijack_WalkingPokemon: @ hook at overlay 1, 0x14BD6 (0x021FA4D6)
   mov r1, #0
   str r1, [r3, #0x18]
 
-  ldr r2, =0x1180     @ offset of normal palette in BTX file
+  @ at 0x38 in the BTX file, there is an offset of either 0x116C or 0x416C depending on whether or not the sprite is
+  @ large. this offset plus 0x14 will get us to the palette data.
+  @ thanks, BluRosie!
+  ldrh r2, [r0, #0x38]
+  add r2, #0x14
   add r0, r0, r2
 
   ldr r1, [r3, #0x20] @ contains personality value of last read pkmn data
