@@ -6,7 +6,7 @@ Hijack_GbaPal: @ hook at 0x31E4
 
   ldr r0, =0xBEEF
   ldr r4, =0x023C81A4 
-  ldrh r1, [r4, #0x1E]   @ should be 0xBEEFXXXX where XXXX is index into active personality table
+  ldr r1, [r4, #0x1C]
 
   @ do not continue if flag variable was not set to 0xBEEF earlier up the call chain
   cmp r0, r1
@@ -14,9 +14,7 @@ Hijack_GbaPal: @ hook at 0x31E4
 
   @ load palette pointer and personality value
   add r0, r2, #0
-  ldrh r1, [r4, #0x1C]
-  lsl r1, r1, #2
-  ldr r1, [r4, r1]
+  ldr r1, [r4, #0x20]
 
   @ call hue shifting code (from hueshift.c)
   push {r2, r3}
