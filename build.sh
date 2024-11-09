@@ -47,9 +47,6 @@ compile_asm Hijack_PersonalityTableBuild.s
 compile_asm Hijack_PersonalityTableBuild2.s
 compile_asm Hijack_GbaPal.s
 compile_asm Hijack_BattleDataPtrSave.s
-compile_asm Hijack_BattleStart.s
-compile_asm Hijack_BattleEnd.s
-compile_asm Hijack_BattleEndCaught.s
 compile_asm Hijack_MiscSprite.s
 compile_asm Hijack_HallOfFame.s
 compile_asm Hijack_PaletteUpload.s
@@ -89,9 +86,9 @@ patch_code Hijack_GbaPal                  $patched_arm9bin          502E0
 patch_code Hijack_BattleSprite2           $patched_arm9bin          50320
 patch_code Hijack_PersonalityTableBuild   $patched_arm9bin          50380
 patch_code Hijack_BattleDataPtrSave       $patched_arm9bin          50400
-patch_code Hijack_BattleStart             $patched_arm9bin          50420
-patch_code Hijack_BattleEnd               $patched_arm9bin          50440
-patch_code Hijack_BattleEndCaught         $patched_arm9bin          50460
+# used to be Hijack_BattleStart           $patched_arm9bin          50420
+# used to be Hijack_BattleEnd             $patched_arm9bin          50440
+# used to be Hijack_BattleEndCaught       $patched_arm9bin          50460
 patch_code Hijack_PersonalityTableBuild2  $patched_arm9bin          50480
 patch_code Hijack_MiscSprite              $patched_arm9bin          504E0
 patch_code Hijack_HallOfFame              $patched_arm9bin          50500
@@ -129,9 +126,6 @@ dmd tableprinter.d
 ./makebl 0223DFAE 02050400 | ./binpatch $patched_overlay16bin 2E6E # Hijack_BattleDataPtrSave.s (GetMainBattleData_GetAdrOfPkmnInParty)
 
 # hijack stuff needed to get in-battle normal sprites working
-./makebl 0223B182 02050420 | ./binpatch $patched_overlay16bin 42   # Hijack_BattleStart.s
-./makebl 0223B294 02050440 | ./binpatch $patched_overlay16bin 154  # Hijack_BattleEnd.s
-./makebl 02249F20 02050460 | ./binpatch $patched_overlay16bin EDE0 # Hijack_BattleEndCaught.s
 ./makebl 0223D828 02050480 | ./binpatch $patched_overlay16bin 26E8 # Hijack_PersonalityTableBuild2.s
 
 # hijack stuff needed to get misc sprite loads working (HM use, introduction)
