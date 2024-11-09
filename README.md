@@ -183,15 +183,11 @@ A rundown of the code files involved:
 
 * `Hijack_PersonalitySave.s` - This code is jumped to from hijacks in both GetPkmnData and GetBoxPkmnData. It just grabs the personality value of the Pokémon involved in this function call (stored conveniently as the first thing in the data block pointed to by `r0`) and puts it at `0x023C81C4` to be used by `Hijack_HueShift.s`.
 
-* `Hijack_HueShift.s` - Hijacks right during a palette load for most instances of a Pokémon's sprite. *Most* of the time, Pokémon sprites are drawn as a textured polygon for the squash/stretch effect for when they're animated. Outside of battle, the personality value used is stored at `0x023C81C4`. The hope here is that whatever the last call to `GetPkmnData` or `GetBoxPkmnData` prior to this code being reached was for the Pokémon we're loading the palette for. However, this is not necessarily true during a battle, and in that case, it will read from the personality table at `0x023C81A4` (see `Hijack_PersonalityTableBuild2.s`). The code in `hueshift.c` is then called to achieve the hue shift effect.
+* `Hijack_PersonalityStore.s` - Hijacks both `GetMonSpriteCharAndPlttNarcIdsEx` and `DP_GetMonSpriteCharAndPlttNarcIdsEx`. Normally, the `personality` field of `PokepicTemplate` is only filled when loading a Spinda's sprite. This hijack makes sure it's filled all the time so that we can easily access it later.
+
+* `Hijack_HueShift.s` - Hijacks `PokepicManager_BufferPlttData` right during a palette load for most instances of a Pokémon's sprite. *Most* of the time, Pokémon sprites are drawn as a textured polygon for the squash/stretch effect for when they're animated. We're able to access the personality value by indexing into an array of `Pokepic` held by the `PokepicManager`, taking advantage of the fact that `Hijack_PersonalityStore.s` make sure it's always filled in each `PokepicTemplate`. The code in `hueshift.c` is then called to achieve the hue shift effect.
 
 * `Hijack_BattleDataPtrSave.s` - This hijacks a function in overlay 12 ("Battle Interface") called `GetMainBattleData_GetAdrOfPkmnInParty`. It stores a pointer stored passed in `r0` relating to varialbe battle data to `0x023C81B4` so that it can be used in `Hijack_PersonalityTableBuild.s`. (Note: This very probably could have been achieved by hijacking a different place instead, but this still works.)
-
-* `Hijack_BattleStart` - Hijacks the `0` case of the switch in `BattleEngineInit` in overlay 12 (right when a battle starts). Stores `0xBA771E` into `0x023C81BC` to be read later by `Hijack_HueShift.s`.
-
-* `Hijack_BattleEnd` - Hijacks the `9` case of the switch in `BattleEngineInit` in overlay 12 (right when a battle ends). Stores `0` into `0x023C81BC` to be read later by `Hijack_HueShift.s`.
-
-* `Hijack_BattleEndCaught` - Hijacks in `TryToCatchPkmn` in overlay 12 when a Pokémon is caught. Stores `0` into `0x023C81BC` to be read later by `Hijack_HueShift.s`. This prevents the sprites loaded during the post-capture sequence from using the in-battle personality table, since they always use the 0th sprite slot.
 
 * `Hijack_PersonalityTableBuild.s` - Hijacks inside a function in overlay 7 ("Move Animations") that gets called whenever a Pokémon is being switched out. In battles, not only do Pokémon load the typical textured polygon sprite, but during various battle animations, a GBA-styled tile-based sprite that looks just like the other one is placed on top of it. To account for this, I had to do a lot more work to figure out which Pokémon's sprite is being loaded. My code is ran in the middle of a loop from 0 to 3 (one for each Pokémon that could be on the field). I have to use this current index to read into a table describing which Pokémon are actually on the field at the moment (can be 0-5), call `GetMainBattleData_GetAdrOfPkmnInParty` to grab the pointer to that Pokémon in whatever party it's in, get the personality value, then store it off in my table at `0x023C81A4` so it can be read later. (Note: The meaning of the loop indices 0-3 is the same as in the free RAM table above).
 
@@ -214,3 +210,4 @@ A rundown of the code files involved:
 
 * [MKHT](https://twitter.com/mkht_real) - Lots of help choosing shiny colors.
 * [Mikelan98, Nomura](https://pokehacking.com/r/20041000) - ARM9 Expansion Subroutine
+* [pokeheartgold](https://github.com/pret/pokeheartgold) for the invaluable insight into the game's code

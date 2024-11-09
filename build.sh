@@ -60,9 +60,6 @@ compile_asm Hijack_PersonalityTableBuild.s
 compile_asm Hijack_PersonalityTableBuild2.s
 compile_asm Hijack_GbaPal.s
 compile_asm Hijack_BattleDataPtrSave.s
-compile_asm Hijack_BattleStart.s
-compile_asm Hijack_BattleEnd.s
-compile_asm Hijack_BattleEndCaught.s
 compile_asm Hijack_MiscSprite.s
 compile_asm Hijack_WalkingPokemon.s
 compile_asm Hijack_WalkingPokemonDetect.s
@@ -121,9 +118,9 @@ patch_code Hijack_GbaPal                  2A4
 patch_code Hijack_BattleSprite2           2E4
 patch_code Hijack_PersonalityTableBuild   344
 patch_code Hijack_BattleDataPtrSave       3C4
-patch_code Hijack_BattleStart             3E4
-patch_code Hijack_BattleEnd               404
-patch_code Hijack_BattleEndCaught         424
+# used to be Hijack_BattleStart           3E4
+# used to be Hijack_BattleEnd             404
+# used to be Hijack_BattleEndCaught       424
 patch_code Hijack_PersonalityTableBuild2  444
 patch_code Hijack_MiscSprite              4A4
 patch_code Hijack_WalkingPokemon          4C4
@@ -172,9 +169,6 @@ cd ../
 ./makebl 0223A882 023C83C4 | ./binpatch $patched_overlay12bin 2FC2 # Hijack_BattleDataPtrSave.s (GetMainBattleData_GetAdrOfPkmnInParty)
 
 # hijack stuff needed to get in-battle normal sprites working
-./makebl 02237902 023C83E4 | ./binpatch $patched_overlay12bin 42   # Hijack_BattleStart.s
-./makebl 02237A26 023C8404 | ./binpatch $patched_overlay12bin 166  # Hijack_BattleEnd.s
-./makebl 02246950 023C8424 | ./binpatch $patched_overlay12bin F090 # Hijack_BattleEndCaught.s
 ./makebl 0223A0FC 023C8444 | ./binpatch $patched_overlay12bin 283C # Hijack_PersonalityTableBuild2.s
 
 # hijack stuff needed to get misc sprite loads working (HM use, introduction)
