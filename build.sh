@@ -28,7 +28,9 @@ patched_weathersys065bin=weather_sys_065_patched.bin
 
 # compile asm and C files
 function compile_c {
-  eval $DEVKITARM/bin/arm-none-eabi-gcc -Wall -Os -march=armv5te -mtune=arm946e-s -fomit-frame-pointer -ffast-math -mthumb -mthumb-interwork -I/opt/devkitpro/libnds/include -DARM9 -c $1 -o $(basename $1 .c).o
+  eval $DEVKITARM/bin/arm-none-eabi-gcc -Wall -Os -march=armv5te -mtune=arm946e-s -fomit-frame-pointer -ffast-math \
+    -mthumb -mthumb-interwork "-I$DEVKITPRO/libnds/include" "-I$DEVKITPRO/calico/include" -D__NDS__ -DARM9 \
+    -c $1 -o $(basename $1 .c).o
 }
 
 function compile_asm {
