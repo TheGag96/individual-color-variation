@@ -139,24 +139,22 @@ List of changed Pokémon (so far):
 ## Building
 
 1. Install [devkitARM](https://devkitpro.org/wiki/Getting_Started).
-2. Install a [D compiler](https://dlang.org/download.html).
-3. Download NSMB Editor. Because the latest version (as of 379) is broken with regard to decompressing overlays, I recommend [this custom version](https://nsmbhd.net/post/53582/) from MeroMero. An [older version](https://nsmbhd.net/download/353/) may work also. For Windows users, [CrystalTile2](https://www.romhacking.net/utilities/818/) may also work.
-4. Download [PokeEditor](https://github.com/turtleisaac/PokEditor/releases), extract it into the root folder of this repo, and rename folder that got extracted to `PokEditor`.
-5. Open up your ROM in NSMBe (ignoring the error that comes up on load when using MeroMero's build).
-6. Under "Tools/Options", select "Decompress ARM9 binary".
-7. Under "ROM File Browser", select `arm9.bin`, click "Extract", and save as `arm9_hg_vanilla.bin` in the root folder of this repo.
-8. In the `overlay9` folder, select `overlay9_1.bin`, click "Decompress overlay", click "Extract", and save as `overlay1_hg_vanilla.bin`. Do similarly with overlays 7, 12, 14, 63, 64, 74, 96, 97, 98, and 112 (`overlay7_hg_vanilla.bin`, `overlay12_hg_vanilla.bin`, etc.).
-9. In the `root/a/0/2` folder, extract file `8` as `custom_overlay_hg_vanilla.narc`.
-10. On the command line, run `./build.sh`.
-11. In NSMBe, reinsert `arm9_hg_patched.bin` back into `arm9.bin`. Also, reinsert `overlay1_hg_patched.bin`, `overlay7_hg_patched.bin`, `overlay12_hg_patched.bin`, etc. back into `overlay9_1.bin`, `overlay9_7.bin`, `overlay9_12.bin`, etc. respectively. For `arm9.bin`, you may need to hit "Decompress ARM9 Binary" to correctly insert it (not sure).
-12. Reinsert `custom_overlay_hg.narc` into `root/a/0/2/8`.
-13. Extract `root/a/0/0/4` as `hg_pokegra.narc`.
-14. For each image in the `ShinyChanges` folder, insert that image to the proper place using ["Pokemon Ds/Pic Platinum"](https://projectpokemon.org/home/files/file/2085-pokedspic/). (Note that some Pokémon might have changes to the base sprite.)
-15. Reinsert `hg_pokegra.narc` back into `root/a/0/0/4`.
-16. If you want to be INSANELY thorough, extract `root/pbr/pokegra.narc` and replace each changed palette entry, and reinsert. (I think this has to do with Pokémon Battle Revolution - I doubt you really have to do this.)
-17. Extract `root/a/0/8/1` as `ow_sprites.narc`.
-18. Run `./pack_follow_pal.sh`.
-19. Insert the resulting `ow_sprites_patched.narc` to `root/a/0/8/1`.
+1. Install a [D compiler](https://dlang.org/download.html).
+1. Download NSMB Editor. Because the latest version (as of 379) is broken with regard to decompressing overlays, I recommend [this custom version](https://nsmbhd.net/post/53582/) from MeroMero. An [older version](https://nsmbhd.net/download/353/) may work also. For Windows users, [CrystalTile2](https://www.romhacking.net/utilities/818/) may also work.
+1. Open up your ROM in NSMBe (ignoring the error that comes up on load when using MeroMero's build).
+1. Under "Tools/Options", select "Decompress ARM9 binary".
+1. Under "ROM File Browser", select `arm9.bin`, click "Extract", and save as `arm9_hg_vanilla.bin` in the root folder of this repo.
+1. In the `overlay9` folder, select `overlay9_1.bin`, click "Decompress overlay", click "Extract", and save as `overlay1_hg_vanilla.bin`. Do similarly with overlays 7, 12, 14, 63, 64, 74, 96, 97, 98, and 112 (`overlay7_hg_vanilla.bin`, `overlay12_hg_vanilla.bin`, etc.).
+1. In the `root/a/0/2` folder, extract file `8` as `custom_overlay_hg_vanilla.narc`.
+1. Extract `root/a/0/8/1` as `ow_sprites.narc`.
+1. On the command line, run `rdmd -i build.d`.
+1. In NSMBe, reinsert `arm9_hg_patched.bin` back into `arm9.bin`. Also, reinsert `overlay1_hg_patched.bin`, `overlay7_hg_patched.bin`, `overlay12_hg_patched.bin`, etc. back into `overlay9_1.bin`, `overlay9_7.bin`, `overlay9_12.bin`, etc. respectively. For `arm9.bin`, you may need to hit "Decompress ARM9 Binary" to correctly insert it (not sure).
+1. Reinsert `custom_overlay_hg.narc` into `root/a/0/2/8`.
+1. Reinsert `ow_sprites_patched.narc` to `root/a/0/8/1`.
+1. Extract `root/a/0/0/4` as `hg_pokegra.narc`.
+1. For each image in the `ShinyChanges` folder, insert that image to the proper place using ["Pokemon Ds/Pic Platinum"](https://projectpokemon.org/home/files/file/2085-pokedspic/). (Note that some Pokémon might have changes to the base sprite.)
+1. Reinsert `hg_pokegra.narc` back into `root/a/0/0/4`.
+1. If you want to be INSANELY thorough, extract `root/pbr/pokegra.narc` and replace each changed palette entry, and reinsert. (I think this has to do with Pokémon Battle Revolution - I doubt you really have to do this.)
 
 
 ## How It Works
@@ -167,9 +165,10 @@ The added code used to make this work are inserted in a "synthetic overlay". An 
 
 | Address      | Description                                                                                                                                                                                                    |
 |--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `0x0x023C81A4-0x023C81BC` | Unused                                                                                                                                                                                                         |
-| `0x023C81C0` | Read in `Hijack_GbaPal.s` to determine if up the call chain, it was signalled that a Pokémon's battle sprite palette is being loaded. `0x0000BEEF` if so, `0` otherwise. Also set to `0xB0C5` by `Hijack_BoxSprite1.s` to be read by `Hijack_BoxSprite2.s` when loading a palette in the PC box. |
-| `0x023C81C4` | Contains the personality value of the Pokémon read by the last call to `GetPkmnData` or `GetBoxPkmnData`, as well as other hijacks that cache a personality value. Read by `Hijack_HueShift.s` and `Hijack_MiscSprite.s`.                                             |
+| `0x023C8000-0x023C8014` | Unused                                                                                                                                                                                                         |
+| `0x023C8018` | Set to `0x000F0110` in `Hijack_WalkingPokemonDetect.s` so that `Hijack_WalkingPokemon.s` knows that the sprite palette being loaded is for a following Pokémon. Reset to `0` afterward. |
+| `0x023C801C` | Read in `Hijack_GbaPal.s` to determine if up the call chain, it was signalled that a Pokémon's battle sprite palette is being loaded. `0x0000BEEF` if so, `0` otherwise. Also set to `0xB0C5` by `Hijack_BoxSprite1.s` to be read by `Hijack_BoxSprite2.s` when loading a palette in the PC box. |
+| `0x023C8020` | Contains the personality value of the Pokémon read by the last call to `GetPkmnData` or `GetBoxPkmnData`, as well as other hijacks that cache a personality value. Read by `Hijack_HueShift.s` and `Hijack_MiscSprite.s`.                                             |
 
 A rundown of the code files involved:
 

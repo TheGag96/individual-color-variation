@@ -9,7 +9,7 @@ Hijack_BattleSprite2: @ hook at overlay 7, 0x1BCA (0x0221D9EA)
   @ luckily, Hijack_PersonalityStore makes sure this always filled!
   ldr r1, [r6, #0x10]
 
-  ldr r0, =0x023C81A4 @ location of "free ram" area
+  ldr r0, =0x023C8000 @ location of "free ram" area
   str r1, [r0, #0x20] @ contains last-cached personality value
 
   @ set flag to be read later by Hijack_GbaPal.s

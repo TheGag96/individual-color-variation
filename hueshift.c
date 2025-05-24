@@ -12,8 +12,8 @@ typedef s32 fixed;
 #define TWO_THIRDS (fixed) (0x2AA)
 #define SQRT_1_3   (fixed) (0x24F)
 
-#define COS_LOC 0x023C8000
-#define SIN_LOC 0x023C8040
+#define COS_LOC 0x023C8030
+#define SIN_LOC 0x023C8070
 
 //Note: Functions in this file are inline because i need to insert this code all in one spot and don't want to have to
 //deal with linking.

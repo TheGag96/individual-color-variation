@@ -5,8 +5,8 @@ Hijack_WalkingPokemonDetect: @ hook at overlay 1, 0xBA8 (0x021E64A8)
   push {r0, r1}
 
   ldr r0, =0x000F0110
-  ldr r1, =0x023C81BC @ location of in battle flag
-  str r0, [r1]
+  ldr r1, =0x023C8000 @ location of "free ram" area
+  str r0, [r1, #0x18]
 
   @ restore old code
   pop {r0, r1}

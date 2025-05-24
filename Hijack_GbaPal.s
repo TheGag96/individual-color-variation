@@ -5,7 +5,7 @@ Hijack_GbaPal: @ hook at 0x31E4
   push {r0, r1, r4}
 
   ldr r0, =0xBEEF
-  ldr r4, =0x023C81A4 
+  ldr r4, =0x023C8000
   ldr r1, [r4, #0x1C]
 
   @ do not continue if flag variable was not set to 0xBEEF earlier up the call chain
@@ -21,7 +21,7 @@ Hijack_GbaPal: @ hook at 0x31E4
 
   mov r2, #0  @ r1 contians the whole personality value, not just a hue shift table index.
 
-  ldr r3, =0x023C8081
+  ldr r3, =0x023C80B1
   blx r3
   pop {r2, r3}
 

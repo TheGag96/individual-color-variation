@@ -10,7 +10,7 @@ Hijack_HofViewOw: @ hook at 0x1504, overlay 64 (0x021E6E04)
 
   mov r2, #0  @ r1 contians the whole personality value, not just a hue shift table index.
 
-  ldr r3, =0x023C8081 @ location of code from hueshift.c
+  ldr r3, =0x023C80B1 @ location of code from hueshift.c
   blx r3
 
   @ Restore old code

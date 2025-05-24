@@ -6,7 +6,7 @@ Hijack_BoxSprite2: @ hook at 0x7E00
   ldr r0, [r0, #0x0C] @ pointer to palette
   push {r0, r1, r2, r3}
 
-  ldr r1, =0x023C81A4 @ location of "free ram" area
+  ldr r1, =0x023C8000 @ location of "free ram" area
 
   @ stop if 0xB0C5 was not set up the chain (loading sprite viewing the pc box)
   ldr r2, [r1, #0x1C]
@@ -21,7 +21,7 @@ Hijack_BoxSprite2: @ hook at 0x7E00
   ldr r1, [r1, #0x20] @ contains personality value of last read pkmn data
   mov r2, #0          @ r1 contians the whole personality value, not just a hue shift table index.
 
-  ldr r3, =0x023C8081 @ location of code from hueshift.c
+  ldr r3, =0x023C80B1 @ location of code from hueshift.c
   blx r3
 
   .end:

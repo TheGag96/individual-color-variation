@@ -27,7 +27,7 @@ Hijack_LoadPal: @ hook at 0x795E, in GfGfxLoader_GXLoadPalWithSrcOffset
   mov r1, r5
   mov r2, #1  @ r1 contians only a hue shift table index.
 
-  ldr r4, =0x023C8081 @ location of code from hueshift.c
+  ldr r4, =0x023C80B1 @ location of code from hueshift.c
   blx r4
 
   .end:

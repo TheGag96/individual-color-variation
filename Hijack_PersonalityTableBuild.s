@@ -6,7 +6,7 @@ Hijack_PersonalityTableBuild: @ hook at overlay 7, 0x3E8C (0x0221FCAC)
   push {lr}
   push {r0-r6}
 
-  ldr r3, =0x023C81A4 @ table of active personality values (and also cached battle data ptr)
+  ldr r3, =0x023C8000 @ table of active personality values (and also cached battle data ptr)
   add r4, r0, #0 @ save loop variable
 
   .write_table:

@@ -11,7 +11,7 @@ Hijack_Ov112: @ hook at overlay 112 @ 0xB3F2 (0x021F0CF2), overlay 97 @ 0x1682 (
 
   mov r2, #0  @ r1 contians the whole personality value, not just a hue shift table index.
 
-  ldr r3, =0x023C8081 @ location of code from hueshift.c
+  ldr r3, =0x023C80B1 @ location of code from hueshift.c
   blx r3
 
   @ restore old code

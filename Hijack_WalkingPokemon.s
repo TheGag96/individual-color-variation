@@ -16,7 +16,7 @@ Hijack_WalkingPokemon: @ hook at overlay 1, 0x14BD6 (0x021FA4D6)
   cmp r7, r1
   bgt .end
 
-  ldr r3, =0x023C81A4 @ location of "free ram" area
+  ldr r3, =0x023C8000 @ location of "free ram" area
 
   @ do not continue if 0xF0110 was not set earlier
   ldr r2, [r3, #0x18]
@@ -38,7 +38,7 @@ Hijack_WalkingPokemon: @ hook at overlay 1, 0x14BD6 (0x021FA4D6)
   ldr r1, [r3, #0x20] @ contains personality value of last read pkmn data
   mov r2, #0          @ r1 contians the whole personality value, not just a hue shift table index.
 
-  ldr r3, =0x023C8081 @ location of code from hueshift.c
+  ldr r3, =0x023C80B1 @ location of code from hueshift.c
 
   push {r0, r1, r2, r3}
   blx r3
